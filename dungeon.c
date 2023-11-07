@@ -13,7 +13,9 @@ void afficherRoom(room maRoom){
             printf("%c", maRoom.chunks[i][j]);
     }
     printf("\n");
-}}
+    }
+    free(maRoom.chunks);
+}
 
 
 int randomNum(int min, int max){
@@ -49,9 +51,7 @@ room creatRoom(int xPeak, int yPeak, int largeur, int longueur) {
             }
         }
     }
-    // maRoom = fillRoom(maRoom);
-    
-    free(maRoom.chunks);
+    maRoom = fillRoom(maRoom);
     return maRoom;
 }
 
