@@ -101,5 +101,6 @@ room fillRoom(room maRoom){
             numHostel = Spawner(maRoom, numHostel, typeHostel, i, j);
         }
     
-    }return maRoom;
+    }
+    return maRoom;
 }
