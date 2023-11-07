@@ -32,6 +32,8 @@ int Spawner(room maRoom, int spawnerDisp, char type, int i, int j);
 
 
 
-room creatRoom(int numMonster, int xPeak, int yPeak, int largeur, int longueur);
+room creatRoom(int xPeak, int yPeak, int largeur, int longueur);
+
+room fillRoom(room maRoom);
 
 #endif

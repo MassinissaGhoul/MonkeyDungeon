@@ -6,12 +6,10 @@
 int main(){
 
     srand(time(NULL));
-    
-    // creatRoom(5, 5);
-    // creatRoom(10, 7);
-    // room* maSalle;
 
-    room maSalle = creatRoom(6, 10, 10, 10, 10); 
+    // room maSalle = creatRoom(11, 11, 11, 11); 
+    // room maSalle = creatRoom(25, 25, 25, 25);
+    room maSalle = creatRoom(12, 12, 12, 12); 
     afficherRoom(maSalle);
 
     // free(maSalle);
