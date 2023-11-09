@@ -24,7 +24,7 @@ typedef struct dungeon {
 void afficherRoom(room maRoom);
 
 int randomNum(int min, int max);
-int Spawner(room maRoom, int spawnerDisp, char type, int i, int j);
+room Spawner(room maRoom, int spawnerDisp, char type);
 
 // int Spawner(int number, char type, int longueur, int largeur, char room[][largeur]);
 

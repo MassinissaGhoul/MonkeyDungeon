@@ -24,13 +24,18 @@ int randomNum(int min, int max){
 
 
 
-int Spawner(room maRoom, int spawnerDisp, char type, int i, int j)
-{
-    if (randomNum(0, 10) == 1 && spawnerDisp > 0 && maRoom.chunks[i][j] == ' ') {
-        maRoom.chunks[i][j] = type;
-        spawnerDisp = spawnerDisp - 1;
+room Spawner(room maRoom, int spawnerDisp, char type){
+    for (int i = 0; i < maRoom.longueur; i++) {
+        for (int j = 0; j < maRoom.largeur; j++) {
+            if (randomNum(1, 10) == 1 && spawnerDisp > 0 && (maRoom.chunks[i][j] != '#' && maRoom.chunks[i][j] == ' ')) {
+                maRoom.chunks[i][j] = type;
+                spawnerDisp = spawnerDisp - 1;
+            }
+        }
+    
     }
-    return spawnerDisp;
+    
+    return maRoom;
 }
 
 room creatRoom(int xPeak, int yPeak, int largeur, int longueur) {
@@ -75,32 +80,27 @@ room fillRoom(room maRoom){
         return maRoom;
     }else if (maRoom.longueur <= 10 && maRoom.largeur <= 10)
     {
-        int numMonster = 4;
-        int numChest = 0;
-        int numTrap = 1;
-        int hostel = 0;
+        numMonster = 4;
+        numChest = 0;
+        numTrap = 1;
+        numHostel = 0;
     }else if (maRoom.longueur <= 20 && maRoom.largeur <= 20)
     {
-        int numMonster = 6;
-        int numChest = 1;
-        int numTrap = 3;
-        int hostel = 0;
+        numMonster = 6;
+        numChest = 1;
+        numTrap = 3;
+        numHostel = 0;
     }else if (maRoom.longueur >= 20 && maRoom.largeur >= 20)
     {
-        int numMonster = 3;
-        int numChest = 0;
-        int numTrap = 0;
-        int hostel = 0;
+        numMonster = 3;
+        numChest = 0;
+        numTrap = 0;
+        numHostel = 0;
         maRoom.chunks[maRoom.longueur/2][maRoom.largeur/2] = *"B";
     }
-    for (int i = 0; i < maRoom.longueur; i++) {
-        for (int j = 0; j < maRoom.largeur; j++) {
-            numMonster = Spawner(maRoom, numMonster, typeMonster, i, j);
-            numChest = Spawner(maRoom, numChest, typeChest, i, j);
-            numTrap = Spawner(maRoom, numTrap, typeTrap, i, j);
-            numHostel = Spawner(maRoom, numHostel, typeHostel, i, j);
-        }
-    
-    }
+    maRoom = Spawner(maRoom, numMonster, typeMonster);
+    maRoom = Spawner(maRoom, numChest, typeChest);
+    maRoom = Spawner(maRoom, numTrap, typeTrap);
+    maRoom = Spawner(maRoom, numHostel, typeHostel);
     return maRoom;
 }
