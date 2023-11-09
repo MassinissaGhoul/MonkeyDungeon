@@ -27,7 +27,7 @@ int randomNum(int min, int max){
 room Spawner(room maRoom, int spawnerDisp, char type){
     for (int i = 0; i < maRoom.longueur; i++) {
         for (int j = 0; j < maRoom.largeur; j++) {
-            if (randomNum(1, 10) == 1 && spawnerDisp > 0 && (maRoom.chunks[i][j] != '#' && maRoom.chunks[i][j] == ' ')) {
+            if (randomNum(0, 10) == 1 && spawnerDisp > 0 && (maRoom.chunks[i][j] != '#' && maRoom.chunks[i][j] == ' ')) {
                 maRoom.chunks[i][j] = type;
                 spawnerDisp = spawnerDisp - 1;
             }
@@ -92,11 +92,16 @@ room fillRoom(room maRoom){
         numHostel = 0;
     }else if (maRoom.longueur >= 20 && maRoom.largeur >= 20)
     {
-        numMonster = 3;
+        numMonster = 5;
         numChest = 0;
-        numTrap = 0;
+        numTrap = 5;
         numHostel = 0;
         maRoom.chunks[maRoom.longueur/2][maRoom.largeur/2] = *"B";
+
+        maRoom.chunks[maRoom.longueur/3][maRoom.largeur/3] = *"#";
+        maRoom.chunks[maRoom.longueur/3 + maRoom.longueur/3][maRoom.largeur/3] = *"#";
+        maRoom.chunks[maRoom.longueur/3][maRoom.largeur/3 + maRoom.longueur/3] = *"#";
+        maRoom.chunks[maRoom.longueur/3 + maRoom.longueur/3][maRoom.largeur/3 + maRoom.longueur/3] = *"#";
     }
     maRoom = Spawner(maRoom, numMonster, typeMonster);
     maRoom = Spawner(maRoom, numChest, typeChest);
