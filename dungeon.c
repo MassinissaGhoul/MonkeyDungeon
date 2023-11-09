@@ -51,7 +51,6 @@ room creatRoom(int xPeak, int yPeak, int largeur, int longueur) {
             }
         }
     }
-    maRoom = fillRoom(maRoom);
     return maRoom;
 }
 
@@ -120,17 +119,56 @@ room askPlayer(){
     int longueur;
     int largeur;
     char *typeCarac[4] = {"Monstre","Coffre","Piege","Autel"};
+    int whoPlace;
     printf("Longueur de la salle: ");
     scanf("%d", &longueur);
     printf("Largeur de la salle: ");
     scanf("%d", &largeur);
     maRoom = creatRoom(largeur, longueur, largeur, longueur);
     iteration = (maRoom.largeur > maRoom.longueur) ? maRoom.largeur*1.8 : maRoom.longueur*1.8;
-    for (int i = 0; i < 4; i++){
-        int numCarac = 0;
-        printf("Combien de %s ?", typeCarac[i]);
-        scanf("%d", &numCarac);
-        maRoom = Spawner(maRoom, numCarac, typeCarac[i][0]);
+    printf("Voulez-vous que les elements soit places automatiquement ? (0 => oui /1 => non) ");
+    scanf("%d", &whoPlace);
+    if (whoPlace == 0){
+        for (int i = 0; i < 4; i++){
+            int numCarac = 0;
+            printf("Combien de %s ? ", typeCarac[i]);
+            scanf("%d", &numCarac);
+            maRoom = Spawner(maRoom, numCarac, typeCarac[i][0]);
+        }
+    }else{
+        for (int i = 0; i < 4; i++){
+            int numCarac = 0;
+            printf("Combien de %s ? ", typeCarac[i]);
+            scanf("%d", &numCarac);
+            for (int j = numCarac; j > 0; j--){
+                placeCarac(maRoom, typeCarac[i][0]);
+            }
+        }
     }
+    return maRoom;
+}
+
+
+room placeCarac(room maRoom, char typeCarac){
+    int coorX;
+    int coorY;
+    int canPlace = 0;
+    do {
+        printf("Coordonee X: ");
+        scanf("%d", &coorX);
+        printf("Coordonee Y: ");
+        scanf("%d", &coorY);
+        if ((maRoom.largeur <= coorX)){
+            printf("La valeur de X est trop grande");
+        }else if ((maRoom.longueur <= coorY)){
+            printf("La valeur de Y est trop grande");
+        }else{
+            canPlace = 1;
+        }
+    }while (canPlace = 0);
+    if (maRoom.chunks[coorX][coorY] != '#' && maRoom.chunks[coorX][coorY] == ' '){
+                maRoom.chunks[coorX][coorY] = typeCarac;
+                printf("Element placee.\n");
+        }
     return maRoom;
 }

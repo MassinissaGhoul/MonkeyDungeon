@@ -34,4 +34,6 @@ room fillRoom(room maRoom);
 
 room askPlayer();
 
+room placeCarac(room maRoom, char typeCarac);
+
 #endif

@@ -13,6 +13,12 @@ int main(){
     // room maSalle4 = creatRoom(12, 12, 12, 12); 
     room maSalle5 = askPlayer();
 
+    // maSalle = fillRoom(maSalle);
+    // maSalle2 = fillRoom(maSalle2);
+    // maSalle3 = fillRoom(maSalle3);
+    // maSalle4 = fillRoom(maSalle4);
+    
+
     // afficherRoom(maSalle);
     // afficherRoom(maSalle2);
     // afficherRoom(maSalle3);
