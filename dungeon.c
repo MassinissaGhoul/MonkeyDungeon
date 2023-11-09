@@ -30,9 +30,7 @@ room Spawner(room maRoom, int spawnerDisp, char type){
                 spawnerDisp = spawnerDisp - 1;
             }
         }
-    
     }
-    
     return maRoom;
 }
 
@@ -43,7 +41,6 @@ room creatRoom(int xPeak, int yPeak, int largeur, int longueur) {
     maRoom.largeur = largeur;
     maRoom.longueur = longueur;
     maRoom.chunks = (char**)malloc(longueur * sizeof(char*));
-    printf("Voici la salle : \n");
     for (int i = 0; i < longueur; i++) {
         maRoom.chunks[i] = (char*)malloc(largeur * sizeof(char));
         for (int j = 0; j < largeur; j++) {
@@ -90,7 +87,7 @@ room fillRoom(room maRoom){
         numHostel = 0;
     }else if (maRoom.longueur >= 20 && maRoom.largeur >= 20)
     {
-        iteration = 50;
+        iteration = (maRoom.largeur > maRoom.longueur) ? maRoom.largeur*1.8 : maRoom.longueur*1.8;
         numMonster = 8;
         numChest = 4;
         numTrap = 5;
@@ -101,10 +98,39 @@ room fillRoom(room maRoom){
         maRoom.chunks[maRoom.longueur/3 + maRoom.longueur/3][maRoom.largeur/3] = *"#";
         maRoom.chunks[maRoom.longueur/3][maRoom.largeur/3 + maRoom.longueur/3] = *"#";
         maRoom.chunks[maRoom.longueur/3 + maRoom.longueur/3][maRoom.largeur/3 + maRoom.longueur/3] = *"#";
+    }else
+    {
+        numMonster = maRoom.longueur / 3;
+        numChest = maRoom.longueur / 6;
+        numTrap = maRoom.longueur / 5;
+        numHostel = 0;
+        iteration = (maRoom.largeur > maRoom.longueur) ? maRoom.largeur*1.8 : maRoom.longueur*1.8;
+
     }
     maRoom = Spawner(maRoom, numMonster, typeMonster);
     maRoom = Spawner(maRoom, numChest, typeChest);
     maRoom = Spawner(maRoom, numTrap, typeTrap);
     maRoom = Spawner(maRoom, numHostel, typeHostel);
+    return maRoom;
+}
+
+
+room askPlayer(){
+    room maRoom;
+    int longueur;
+    int largeur;
+    char *typeCarac[4] = {"Monstre","Coffre","Piege","Autel"};
+    printf("Longueur de la salle: ");
+    scanf("%d", &longueur);
+    printf("Largeur de la salle: ");
+    scanf("%d", &largeur);
+    maRoom = creatRoom(largeur, longueur, largeur, longueur);
+    iteration = (maRoom.largeur > maRoom.longueur) ? maRoom.largeur*1.8 : maRoom.longueur*1.8;
+    for (int i = 0; i < 4; i++){
+        int numCarac = 0;
+        printf("Combien de %s ?", typeCarac[i]);
+        scanf("%d", &numCarac);
+        maRoom = Spawner(maRoom, numCarac, typeCarac[i][0]);
+    }
     return maRoom;
 }
