@@ -6,10 +6,11 @@
 #define true 1
 #define false 0
 
+int iteration = 1;
+
 void afficherRoom(room maRoom){
     for (int i = 0; i < maRoom.longueur; i++) {
         for (int j = 0; j < maRoom.largeur; j++) {
-            // y'a un problème chef
             printf("%c", maRoom.chunks[i][j]);
     }
     printf("\n");
@@ -17,17 +18,14 @@ void afficherRoom(room maRoom){
     free(maRoom.chunks);
 }
 
-
 int randomNum(int min, int max){
     return rand() % (max - min + 1) + min;
 }
 
-
-
 room Spawner(room maRoom, int spawnerDisp, char type){
     for (int i = 0; i < maRoom.longueur; i++) {
         for (int j = 0; j < maRoom.largeur; j++) {
-            if (randomNum(0, 10) == 1 && spawnerDisp > 0 && (maRoom.chunks[i][j] != '#' && maRoom.chunks[i][j] == ' ')) {
+            if (randomNum(0, 10 + iteration) == 1 && spawnerDisp > 0 && (maRoom.chunks[i][j] != '#' && maRoom.chunks[i][j] == ' ')) {
                 maRoom.chunks[i][j] = type;
                 spawnerDisp = spawnerDisp - 1;
             }
@@ -60,7 +58,6 @@ room creatRoom(int xPeak, int yPeak, int largeur, int longueur) {
     return maRoom;
 }
 
-
 room fillRoom(room maRoom){
     int numMonster;
     char typeMonster = 'M';
@@ -70,6 +67,7 @@ room fillRoom(room maRoom){
     char typeTrap = 'P';
     int numHostel;
     char typeHostel = 'A';
+    int itearation = 1;
 
     if (maRoom.longueur <= 5 && maRoom.largeur <= 5) { //salle de 3x3 en place
         if (randomNum(0, 2) == 1){
@@ -92,8 +90,9 @@ room fillRoom(room maRoom){
         numHostel = 0;
     }else if (maRoom.longueur >= 20 && maRoom.largeur >= 20)
     {
-        numMonster = 5;
-        numChest = 0;
+        iteration = 50;
+        numMonster = 8;
+        numChest = 4;
         numTrap = 5;
         numHostel = 0;
         maRoom.chunks[maRoom.longueur/2][maRoom.largeur/2] = *"B";

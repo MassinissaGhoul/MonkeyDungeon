@@ -15,7 +15,7 @@ typedef struct dungeon {
     int width;
     int height;
     int nbRoom;
-    room *rooms;
+    room** rooms;
 }dungeon;
 
 
