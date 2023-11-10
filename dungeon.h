@@ -16,8 +16,16 @@ typedef struct dungeon {
     int height;
     int nbRoom;
     room** rooms;
+    char** chunks;
 }dungeon;
 
+room freeRoom(room maRoom);
+
+dungeon freeDungeon(dungeon monDungeon);
+dungeon insertRoom(dungeon monDungeon, room maRoom);
+void afficherDungeon(dungeon monDungeon);
+
+dungeon creatDungeon(int width, int height, int nbRoom);
 
 
 

@@ -1,12 +1,71 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "dungeon.h"
 #include <time.h>
-
+#include "dungeon.h"
 #define true 1
 #define false 0
 
+
 int iteration = 1;
+
+room freeRoom(room maRoom){
+    for (int i = 0; i < maRoom.longueur; i++) {
+        free(maRoom.chunks[i]);
+    }
+    free(maRoom.chunks);
+
+}
+
+dungeon freeDungeon(dungeon monDungeon){
+    for (int i = 0; i < monDungeon.width; i++) {
+        free(monDungeon.chunks[i]);
+    }
+    free(monDungeon.chunks);
+}
+
+dungeon insertRoom(dungeon monDungeon, room maRoom){
+    for (int i = 0; i < monDungeon.width; i++) {
+        for (int j = 0; j < monDungeon.height; j++) {
+            if(maRoom.xPeak == i){
+                for (int k = 0 ; k< maRoom.longueur; k++){
+                    for (int l = 0; l < maRoom.largeur; l++){
+                        monDungeon.chunks[k+maRoom.yPeak][l+maRoom.xPeak] = maRoom.chunks[k][l];
+                    }
+                }
+                return monDungeon;
+            }
+
+        }
+    }
+}
+
+void afficherDungeon(dungeon monDungeon){
+    for (int i = 0; i < monDungeon.width; i++) {
+        for (int j = 0; j < monDungeon.height; j++) {
+            printf("%c", monDungeon.chunks[i][j]);
+        }
+         printf("\n");
+    }
+}
+dungeon creatDungeon(int width, int height, int nbRoom){
+    dungeon monDungeon;
+    monDungeon.width = width;
+    monDungeon.height = height;
+    monDungeon.nbRoom = nbRoom;
+    monDungeon.chunks = (char**)malloc(width * sizeof(char*));
+    for (int i = 0; i < width; i++) {
+        monDungeon.chunks[i] = (char*)malloc(height * sizeof(char));
+        for(int j = 0; j < height; j++){
+            if (i == 0 || j == 0 || i == width - 1 || j == height - 1) {
+                monDungeon.chunks[i][j] = '#';
+            } else { 
+                monDungeon.chunks[i][j] = ' ';
+
+            }
+        }
+    }
+    return monDungeon;
+}
 
 void afficherRoom(room maRoom){
     for (int i = 0; i < maRoom.longueur; i++) {
@@ -113,7 +172,6 @@ room fillRoom(room maRoom){
     return maRoom;
 }
 
-
 room askPlayer(){
     room maRoom;
     int longueur;
@@ -147,7 +205,6 @@ room askPlayer(){
     }
     return maRoom;
 }
-
 
 room placeCarac(room maRoom, char typeCarac){
     int coorX;
