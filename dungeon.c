@@ -131,14 +131,14 @@ room askPlayer(){
     if (whoPlace == 0){
         for (int i = 0; i < 4; i++){
             int numCarac = 0;
-            printf("Combien de %s ? ", typeCarac[i]);
+            printf("Combien de %s maximum ? ", typeCarac[i]);
             scanf("%d", &numCarac);
             maRoom = Spawner(maRoom, numCarac, typeCarac[i][0]);
         }
     }else{
         for (int i = 0; i < 4; i++){
             int numCarac = 0;
-            printf("Combien de %s ? ", typeCarac[i]);
+            printf("Combien de %s maximum ? ", typeCarac[i]);
             scanf("%d", &numCarac);
             for (int j = numCarac; j > 0; j--){
                 placeCarac(maRoom, typeCarac[i][0]);
