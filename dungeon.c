@@ -5,18 +5,33 @@
 #define true 1
 #define false 0
 
-
 int iteration = 1;
 
-room freeRoom(room maRoom){
+
+void saveDungeonFile(dungeon monDungeon, char* fileName) {
+    FILE* fileLocation;
+    fileLocation = fopen(fileName, "w");
+    if (fileLocation == NULL) {
+        printf("Erreur lors de l'ouverture du fichier");
+        exit(1);
+    }
+    for(int i = 0; i < monDungeon.width; i++ ){
+        for(int j = 0; j < monDungeon.height; j++){
+            fprintf(fileLocation, "%c", monDungeon.chunks[i][j]);
+        }
+        fprintf(fileLocation, "\n");
+    }
+    fclose(fileLocation);
+}
+
+void freeRoom(room maRoom){
     for (int i = 0; i < maRoom.longueur; i++) {
         free(maRoom.chunks[i]);
     }
     free(maRoom.chunks);
-
 }
 
-dungeon freeDungeon(dungeon monDungeon){
+void freeDungeon(dungeon monDungeon){
     for (int i = 0; i < monDungeon.width; i++) {
         free(monDungeon.chunks[i]);
     }
@@ -34,9 +49,9 @@ dungeon insertRoom(dungeon monDungeon, room maRoom){
                 }
                 return monDungeon;
             }
-
         }
     }
+    return monDungeon;
 }
 
 void afficherDungeon(dungeon monDungeon){
@@ -151,7 +166,6 @@ room fillRoom(room maRoom){
         numTrap = 5;
         numHostel = 0;
         maRoom.chunks[maRoom.longueur/2][maRoom.largeur/2] = *"B";
-
         maRoom.chunks[maRoom.longueur/3][maRoom.largeur/3] = *"#";
         maRoom.chunks[maRoom.longueur/3 + maRoom.longueur/3][maRoom.largeur/3] = *"#";
         maRoom.chunks[maRoom.longueur/3][maRoom.largeur/3 + maRoom.longueur/3] = *"#";
@@ -227,8 +241,8 @@ room placeCarac(room maRoom, char typeCarac){
         }else{
             canPlace = 1;
         }
-    }while (canPlace = 0);
-    if (maRoom.chunks[coorX][coorY] != '#' && maRoom.chunks[coorX][coorY] == ' '){
+    }while(canPlace = 0);
+    if (maRoom.chunks[coorX][coorY] == ' '){
                 maRoom.chunks[coorX][coorY] = typeCarac;
                 printf("Element placee.\n");
         }
@@ -250,6 +264,7 @@ room bossPlace(room maRoom){
         maRoom.chunks[maRoom.longueur/3 + maRoom.longueur/3][maRoom.largeur/3 + maRoom.longueur/3] = *"#";
         printf("Des pilliers ont été places pour soutenir la salle.\n");
     }
+    return maRoom;
 }
 
 room killMob(room maRoom){
@@ -257,9 +272,9 @@ room killMob(room maRoom){
         for (int j = 0; j < maRoom.largeur; j++){
             if (maRoom.chunks[i][j] == *"P"){
                 for (int k = -1; k < 2; k++){
-                        for (int u = -1; u < 2; u++){
-                            if (maRoom.chunks[i + k][j + u] == *"M"){
-                                maRoom.chunks[i + k][j + u] = *"W";
+                    for (int u = -1; u < 2; u++){
+                        if (maRoom.chunks[i + k][j + u] == *"M"){
+                            maRoom.chunks[i + k][j + u] = *"W";
                         }
                     }
                 }

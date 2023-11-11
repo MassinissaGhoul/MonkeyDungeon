@@ -29,6 +29,9 @@ int main(){
     
     afficherDungeon(monDonjon);
 
+
+    saveDungeonFile(monDonjon, "Dungeon.txt");
+
     // afficherRoom(maSalle);
     freeRoom(maSalle);
     freeDungeon(monDonjon);

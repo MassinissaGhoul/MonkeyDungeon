@@ -19,9 +19,11 @@ typedef struct dungeon {
     char** chunks;
 }dungeon;
 
-room freeRoom(room maRoom);
+void saveDungeonFile(dungeon monDungeon, char* fileName);
 
-dungeon freeDungeon(dungeon monDungeon);
+void freeRoom(room maRoom);
+
+void freeDungeon(dungeon monDungeon);
 dungeon insertRoom(dungeon monDungeon, room maRoom);
 void afficherDungeon(dungeon monDungeon);
 
