@@ -1,0 +1,10 @@
+
+- gestion dépassement donjon par salle
+- un README qui explique l'installation + utilisation
+- sauvegarde donjon dans TXT
+- code plus clean (nom de fonction, commentaire)
+- Ajout des portes
+- Entrée et sortie donjon
+- Réutilisation de la même salle si data similaire
+- Couloir 
+- 
