@@ -84,7 +84,7 @@ int randomNum(int min, int max){
 room Spawner(room maRoom, int spawnerDisp, char type){
     for (int i = 0; i < maRoom.longueur; i++) {
         for (int j = 0; j < maRoom.largeur; j++) {
-            if (randomNum(0, 10 + iteration) == 1 && spawnerDisp > 0 && (maRoom.chunks[i][j] != '#' && maRoom.chunks[i][j] == ' ')) {
+            if (randomNum(0, 10 + iteration) == 1 && spawnerDisp > 0 && maRoom.chunks[i][j] == ' ') {
                 maRoom.chunks[i][j] = type;
                 spawnerDisp = spawnerDisp - 1;
             }
@@ -169,6 +169,7 @@ room fillRoom(room maRoom){
     maRoom = Spawner(maRoom, numChest, typeChest);
     maRoom = Spawner(maRoom, numTrap, typeTrap);
     maRoom = Spawner(maRoom, numHostel, typeHostel);
+    maRoom = killMob(maRoom);
     return maRoom;
 }
 
@@ -187,13 +188,16 @@ room askPlayer(){
     printf("Voulez-vous que les elements soit places automatiquement ? (0 => oui /1 => non) ");
     scanf("%d", &whoPlace);
     if (whoPlace == 0){
+        bossPlace(maRoom);
         for (int i = 0; i < 4; i++){
             int numCarac = 0;
             printf("Combien de %s maximum ? ", typeCarac[i]);
             scanf("%d", &numCarac);
             maRoom = Spawner(maRoom, numCarac, typeCarac[i][0]);
         }
+        maRoom = killMob(maRoom);
     }else{
+        bossPlace(maRoom);
         for (int i = 0; i < 4; i++){
             int numCarac = 0;
             printf("Combien de %s maximum ? ", typeCarac[i]);
@@ -201,6 +205,7 @@ room askPlayer(){
             for (int j = numCarac; j > 0; j--){
                 placeCarac(maRoom, typeCarac[i][0]);
             }
+            maRoom = killMob(maRoom);
         }
     }
     return maRoom;
@@ -227,5 +232,39 @@ room placeCarac(room maRoom, char typeCarac){
                 maRoom.chunks[coorX][coorY] = typeCarac;
                 printf("Element placee.\n");
         }
+    return maRoom;
+}
+
+room bossPlace(room maRoom){
+    int boss;
+    if (maRoom.longueur >= 20 && maRoom.largeur >= 20){
+        printf("Y a t il un boss ? (0 => oui /1 => non) ");
+        scanf("%d", &boss);
+        if (boss == 0){
+            maRoom.chunks[maRoom.longueur/2][maRoom.largeur/2] = *"B";
+            printf("Boss place.\n");
+        }
+        maRoom.chunks[maRoom.longueur/3][maRoom.largeur/3] = *"#";
+        maRoom.chunks[maRoom.longueur/3 + maRoom.longueur/3][maRoom.largeur/3] = *"#";
+        maRoom.chunks[maRoom.longueur/3][maRoom.largeur/3 + maRoom.longueur/3] = *"#";
+        maRoom.chunks[maRoom.longueur/3 + maRoom.longueur/3][maRoom.largeur/3 + maRoom.longueur/3] = *"#";
+        printf("Des pilliers ont été places pour soutenir la salle.\n");
+    }
+}
+
+room killMob(room maRoom){
+    for (int i = 0; i < maRoom.longueur; i++){
+        for (int j = 0; j < maRoom.largeur; j++){
+            if (maRoom.chunks[i][j] == *"P"){
+                for (int k = -1; k < 2; k++){
+                        for (int u = -1; u < 2; u++){
+                            if (maRoom.chunks[i + k][j + u] == *"M"){
+                                maRoom.chunks[i + k][j + u] = *"W";
+                        }
+                    }
+                }
+            }
+        }
+    }
     return maRoom;
 }

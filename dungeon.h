@@ -44,4 +44,8 @@ room askPlayer();
 
 room placeCarac(room maRoom, char typeCarac);
 
+room bossPlace(room maRoom);
+
+room killMob(room maRoom);
+
 #endif
