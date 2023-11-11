@@ -270,7 +270,7 @@ room placeCarac(room maRoom, char typeCarac){
     }while(canPlace = 0);
     if (maRoom.chunks[coorX][coorY] == ' '){
                 maRoom.chunks[coorX][coorY] = typeCarac;
-                printf("Element placee.\n");
+                printf("Entite placee.\n");
         }
     return maRoom;
 }
@@ -281,13 +281,13 @@ room bossPlace(room maRoom){
         printf("Y a t il un boss ? (0 => oui /1 => non) ");
         scanf("%d", &boss);
         if (boss == 0){
-            maRoom.chunks[maRoom.longueur/2][maRoom.largeur/2] = *"B";
+            maRoom.chunks[maRoom.longueur/2][maRoom.largeur/2] = 'B';
             printf("Boss place.\n");
         }
-        maRoom.chunks[maRoom.longueur/3][maRoom.largeur/3] = *"#";
-        maRoom.chunks[maRoom.longueur/3 + maRoom.longueur/3][maRoom.largeur/3] = *"#";
-        maRoom.chunks[maRoom.longueur/3][maRoom.largeur/3 + maRoom.longueur/3] = *"#";
-        maRoom.chunks[maRoom.longueur/3 + maRoom.longueur/3][maRoom.largeur/3 + maRoom.longueur/3] = *"#";
+        maRoom.chunks[maRoom.longueur/3][maRoom.largeur/3] = '#';
+        maRoom.chunks[maRoom.longueur/3 + maRoom.longueur/3][maRoom.largeur/3] = '#';
+        maRoom.chunks[maRoom.longueur/3][maRoom.largeur/3 + maRoom.longueur/3] = '#';
+        maRoom.chunks[maRoom.longueur/3 + maRoom.longueur/3][maRoom.largeur/3 + maRoom.longueur/3] = '#';
         printf("Des pilliers ont été places pour soutenir la salle.\n");
     }
     return maRoom;
@@ -296,11 +296,11 @@ room bossPlace(room maRoom){
 room killMob(room maRoom){
     for (int i = 0; i < maRoom.longueur; i++){
         for (int j = 0; j < maRoom.largeur; j++){
-            if (maRoom.chunks[i][j] == *"P"){
+            if (maRoom.chunks[i][j] == 'P'){
                 for (int k = -1; k < 2; k++){
                     for (int u = -1; u < 2; u++){
-                        if (maRoom.chunks[i + k][j + u] == *"M"){
-                            maRoom.chunks[i + k][j + u] = *"W";
+                        if (maRoom.chunks[i + k][j + u] == 'M'){
+                            maRoom.chunks[i + k][j + u] = 'W';
                         }
                     }
                 }

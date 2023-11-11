@@ -1,9 +1,10 @@
 A FAIRE:
-- un README qui explique l'installation + utilisation
-- Ajout des portes
+- Ajout des portes de salle
+- Couloir
 - Réutilisation de la même salle si data similaire
-- Couloir 
 - test.c
+- un README qui explique l'installation + utilisation
+- séparé la bibliotheque en plusieurs fichiers
 
 EN COURS:
 - gestion dépassement donjon par salle ( faire gestion inteligente)

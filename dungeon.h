@@ -150,7 +150,7 @@ room creatRoom(int xPeak, int yPeak, int largeur, int longueur);
 
 /**
     \brief : met des entites dans une salle
-    
+
     \param maRoom : room : une salle.
 
     \return : une salle avec des entites
