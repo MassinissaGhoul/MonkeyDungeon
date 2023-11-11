@@ -18,10 +18,10 @@ void saveDungeonFile(dungeon monDungeon, char* fileName) {
         printf("Erreur lors de l'ouverture du fichier");
         exit(1);
     }
-    fprintf(fileLocation, "Longueur: %d\n", monDungeon.width);
-    fprintf(fileLocation, "Largeur: %d\n", monDungeon.height);
-    for(int i = 0; i < monDungeon.width; i++ ){
-        for(int j = 0; j < monDungeon.height; j++){
+    fprintf(fileLocation, "Longueur: %d\n", monDungeon.longueur);
+    fprintf(fileLocation, "Largeur: %d\n", monDungeon.largeur);
+    for(int i = 0; i < monDungeon.longueur; i++ ){
+        for(int j = 0; j < monDungeon.largeur; j++){
             fprintf(fileLocation, "%c", monDungeon.chunks[i][j]);
         }
         fprintf(fileLocation, "\n");
@@ -37,16 +37,16 @@ void freeRoom(room maRoom){
 }
 
 void freeDungeon(dungeon monDungeon){
-    for (int i = 0; i < monDungeon.height; i++) {
+    for (int i = 0; i < monDungeon.longueur; i++) {
         free(monDungeon.chunks[i]);
     }
     free(monDungeon.chunks);
 }
 
 dungeon insertRoom(dungeon monDungeon, room maRoom){
-    for (int i = 0; i < monDungeon.height; i++) {
-        for (int j = 0; j < monDungeon.width; j++) {
-            if(maRoom.xPeak == i && monDungeon.chunks[maRoom.yPeak][maRoom.xPeak] != '#' && (maRoom.yPeak + maRoom.longueur -1) < monDungeon.height -1 && (maRoom.xPeak + maRoom.largeur -1) < monDungeon.width -1){
+    for (int i = 0; i < monDungeon.longueur; i++) {
+        for (int j = 0; j < monDungeon.largeur; j++) {
+            if(maRoom.xPeak == i && monDungeon.chunks[maRoom.yPeak][maRoom.xPeak] != '#' && (maRoom.yPeak + maRoom.longueur -1) < monDungeon.longueur -1 && (maRoom.xPeak + maRoom.largeur -1) < monDungeon.largeur -1){
                 for (int k = 0 ; k< maRoom.longueur; k++){
                     for (int l = 0; l < maRoom.largeur; l++){
                         monDungeon.chunks[k+maRoom.yPeak][l+maRoom.xPeak] = maRoom.chunks[k][l];
@@ -60,24 +60,24 @@ dungeon insertRoom(dungeon monDungeon, room maRoom){
 }
 
 void afficherDungeon(dungeon monDungeon){
-    for (int i = 0; i < monDungeon.height; i++) {
-        for (int j = 0; j < monDungeon.width; j++) {
+    for (int i = 0; i < monDungeon.longueur; i++) {
+        for (int j = 0; j < monDungeon.largeur; j++) {
             printf("%c", monDungeon.chunks[i][j]);
         }
          printf("\n");
     }
 }
 
-dungeon creatDungeon(int width, int height, int nbRoom){
+dungeon creatDungeon(int largeur, int longueur, int nbRoom){
     dungeon monDungeon;
-    monDungeon.width = width;
-    monDungeon.height = height;
+    monDungeon.largeur = largeur;
+    monDungeon.longueur = longueur;
     monDungeon.nbRoom = nbRoom;
-    monDungeon.chunks = (char**)malloc(height * sizeof(char*));
-    for (int i = 0; i < height; i++) {
-        monDungeon.chunks[i] = (char*)malloc(width * sizeof(char));
-        for(int j = 0; j < width; j++) {
-            if (i == 0 || j == 0 || i == height - 1 || j == width - 1) {
+    monDungeon.chunks = (char**)malloc(longueur * sizeof(char*));
+    for (int i = 0; i < longueur; i++) {
+        monDungeon.chunks[i] = (char*)malloc(largeur * sizeof(char));
+        for(int j = 0; j < largeur; j++) {
+            if (i == 0 || j == 0 || i == longueur - 1 || j == largeur - 1) {
                 monDungeon.chunks[i][j] = '#';
             } else {
                 monDungeon.chunks[i][j] = ' ';
@@ -93,13 +93,13 @@ dungeon placePorte(dungeon monDungeon){
     char caracEntree = 'E';
     int nbSortie = 1;
     char caracSortie = 'S';
-    for (int i = 1; i < monDungeon.width - 1; i++){
+    for (int i = 1; i < monDungeon.largeur - 1; i++){
         if (randomNum(0, 4) == 1 && nbEntree == 1){
             monDungeon.chunks[0][i] = caracEntree;
             nbEntree -= 1;
         }
         if (randomNum(0, 4) == 1 && nbSortie == 1){
-            monDungeon.chunks[monDungeon.height -1][i] = caracSortie;
+            monDungeon.chunks[monDungeon.longueur -1][i] = caracSortie;
             nbSortie -= 1;
         }
     }
@@ -107,7 +107,7 @@ dungeon placePorte(dungeon monDungeon){
         monDungeon.chunks[0][1] = caracEntree;
     }
     if (nbSortie == 1){
-        monDungeon.chunks[monDungeon.height][1] = caracSortie;
+        monDungeon.chunks[monDungeon.longueur][1] = caracSortie;
     }
     return monDungeon;
 }
