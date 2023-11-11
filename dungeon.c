@@ -7,6 +7,9 @@
 
 int iteration = 1;
 
+int randomNum(int min, int max){
+    return rand() % (max - min + 1) + min;
+}
 
 void saveDungeonFile(dungeon monDungeon, char* fileName) {
     FILE* fileLocation;
@@ -15,6 +18,8 @@ void saveDungeonFile(dungeon monDungeon, char* fileName) {
         printf("Erreur lors de l'ouverture du fichier");
         exit(1);
     }
+    fprintf(fileLocation, "Longueur: %d\n", monDungeon.width);
+    fprintf(fileLocation, "Largeur: %d\n", monDungeon.height);
     for(int i = 0; i < monDungeon.width; i++ ){
         for(int j = 0; j < monDungeon.height; j++){
             fprintf(fileLocation, "%c", monDungeon.chunks[i][j]);
@@ -32,16 +37,16 @@ void freeRoom(room maRoom){
 }
 
 void freeDungeon(dungeon monDungeon){
-    for (int i = 0; i < monDungeon.width; i++) {
+    for (int i = 0; i < monDungeon.height; i++) {
         free(monDungeon.chunks[i]);
     }
     free(monDungeon.chunks);
 }
 
 dungeon insertRoom(dungeon monDungeon, room maRoom){
-    for (int i = 0; i < monDungeon.width; i++) {
-        for (int j = 0; j < monDungeon.height; j++) {
-            if(maRoom.xPeak == i){
+    for (int i = 0; i < monDungeon.height; i++) {
+        for (int j = 0; j < monDungeon.width; j++) {
+            if(maRoom.xPeak == i && monDungeon.chunks[maRoom.yPeak][maRoom.xPeak] != '#' && (maRoom.yPeak + maRoom.longueur -1) < monDungeon.height -1 && (maRoom.xPeak + maRoom.largeur -1) < monDungeon.width -1){
                 for (int k = 0 ; k< maRoom.longueur; k++){
                     for (int l = 0; l < maRoom.largeur; l++){
                         monDungeon.chunks[k+maRoom.yPeak][l+maRoom.xPeak] = maRoom.chunks[k][l];
@@ -55,29 +60,54 @@ dungeon insertRoom(dungeon monDungeon, room maRoom){
 }
 
 void afficherDungeon(dungeon monDungeon){
-    for (int i = 0; i < monDungeon.width; i++) {
-        for (int j = 0; j < monDungeon.height; j++) {
+    for (int i = 0; i < monDungeon.height; i++) {
+        for (int j = 0; j < monDungeon.width; j++) {
             printf("%c", monDungeon.chunks[i][j]);
         }
          printf("\n");
     }
 }
+
 dungeon creatDungeon(int width, int height, int nbRoom){
     dungeon monDungeon;
     monDungeon.width = width;
     monDungeon.height = height;
     monDungeon.nbRoom = nbRoom;
-    monDungeon.chunks = (char**)malloc(width * sizeof(char*));
-    for (int i = 0; i < width; i++) {
-        monDungeon.chunks[i] = (char*)malloc(height * sizeof(char));
-        for(int j = 0; j < height; j++){
-            if (i == 0 || j == 0 || i == width - 1 || j == height - 1) {
+    monDungeon.chunks = (char**)malloc(height * sizeof(char*));
+    for (int i = 0; i < height; i++) {
+        monDungeon.chunks[i] = (char*)malloc(width * sizeof(char));
+        for(int j = 0; j < width; j++) {
+            if (i == 0 || j == 0 || i == height - 1 || j == width - 1) {
                 monDungeon.chunks[i][j] = '#';
-            } else { 
+            } else {
                 monDungeon.chunks[i][j] = ' ';
-
             }
         }
+    }
+    monDungeon = placePorte(monDungeon);
+    return monDungeon;
+}
+
+dungeon placePorte(dungeon monDungeon){
+    int nbEntree = 1;
+    char caracEntree = 'E';
+    int nbSortie = 1;
+    char caracSortie = 'S';
+    for (int i = 1; i < monDungeon.width - 1; i++){
+        if (randomNum(0, 4) == 1 && nbEntree == 1){
+            monDungeon.chunks[0][i] = caracEntree;
+            nbEntree -= 1;
+        }
+        if (randomNum(0, 4) == 1 && nbSortie == 1){
+            monDungeon.chunks[monDungeon.height -1][i] = caracSortie;
+            nbSortie -= 1;
+        }
+    }
+    if (nbEntree == 1){
+        monDungeon.chunks[0][1] = caracEntree;
+    }
+    if (nbSortie == 1){
+        monDungeon.chunks[monDungeon.height][1] = caracSortie;
     }
     return monDungeon;
 }
@@ -90,10 +120,6 @@ void afficherRoom(room maRoom){
     printf("\n");
     }
     free(maRoom.chunks);
-}
-
-int randomNum(int min, int max){
-    return rand() % (max - min + 1) + min;
 }
 
 room Spawner(room maRoom, int spawnerDisp, char type){
@@ -199,7 +225,7 @@ room askPlayer(){
     scanf("%d", &largeur);
     maRoom = creatRoom(largeur, longueur, largeur, longueur);
     iteration = (maRoom.largeur > maRoom.longueur) ? maRoom.largeur*1.8 : maRoom.longueur*1.8;
-    printf("Voulez-vous que les elements soit places automatiquement ? (0 => oui /1 => non) ");
+    printf("Voulez-vous que les elements soit places automatiquement ? ( 0 => oui / 1 => non) ");
     scanf("%d", &whoPlace);
     if (whoPlace == 0){
         bossPlace(maRoom);
