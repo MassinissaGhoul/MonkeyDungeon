@@ -197,7 +197,15 @@ room killMob(room maRoom);
 
     \return : un donjon
 */
-
 dungeon askDungeon();
+
+/**
+    \brief : Demande a l'utilisateur les informations nécessaire a creer une salle pour un donjon
+
+    \param maDonjon : dungeon : un donjon
+
+    \return : un donjon
+*/
+room placeSalle(dungeon monDonjon);
 
 #endif

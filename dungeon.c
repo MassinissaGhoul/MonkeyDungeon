@@ -326,17 +326,45 @@ dungeon askDungeon(){
     if (whoPlace == 0){
         printf("Combien de salle ? ");
         scanf("%d", &nbRoom);
+        int largeurRoom = randomNum(4, monDungeon.largeur/5);
+        int longueurRoom = randomNum(4, monDungeon.longueur/5);
+        room maRoom;
         for (int i = 0; i < nbRoom; i++){
-            
+            maRoom = creatRoom(1, 1, largeurRoom, longueurRoom);
+            maRoom = fillRoom(maRoom);
+            monDungeon = insertRoom(monDungeon, maRoom);
         }
     }else{
-        for (int i = 0; i < 4; i++){
-            int numCarac = 0;
-            printf("Combien de %s maximum ? ");
-            scanf("%d", &numCarac);
-            for (int j = numCarac; j > 0; j--){
-            }
+        printf("Combien de salle ? ");
+        scanf("%d", &nbRoom);
+        for (int i = 0; i < nbRoom; i++){
+            monDungeon = placeSalle(monDungeon);
         }
     }
     return monDungeon;
+}
+
+dungeon placeSalle(dungeon monDonjon){
+    room maRoom;
+    int coorX;
+    int coorY;
+    int canPlace = 0;
+    do {
+        printf("Coordonee X: ");
+        scanf("%d", &coorX);
+        printf("Coordonee Y: ");
+        scanf("%d", &coorY);
+        if ((monDonjon.largeur <= coorX)){
+            printf("La valeur de X est trop grande");
+        }else if ((monDonjon.longueur <= coorY)){
+            printf("La valeur de Y est trop grande");
+        }else if (peutPlacer()){ // ne fonctionne pas pour l'instant
+            printf("La salle est sur une autre salle");
+        }else{
+            canPlace = 1;
+        }
+    }while(canPlace = 0);
+    maRoom = askRoom();
+    printf("Entite placee.\n");
+    return monDonjon;
 }
