@@ -163,7 +163,7 @@ room fillRoom(room maRoom);
     \return : une salle
 */
 
-room askPlayer();
+room askRoom();
 
 /**
     \brief : place des entites dans une salle a des coordonees donnees par l'utilisateur
@@ -191,5 +191,13 @@ room bossPlace(room maRoom);
     \return room : renvoie la piece en ayant change les monstres en depouille
 */
 room killMob(room maRoom);
+
+/**
+    \brief : Demande a l'utilisateur de creer un donjon automatiquement ou avec ses propres parametres
+
+    \return : un donjon
+*/
+
+dungeon askDungeon();
 
 #endif

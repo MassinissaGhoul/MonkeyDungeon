@@ -213,7 +213,7 @@ room fillRoom(room maRoom){
     return maRoom;
 }
 
-room askPlayer(){
+room askRoom(){
     room maRoom;
     int longueur;
     int largeur;
@@ -308,4 +308,35 @@ room killMob(room maRoom){
         }
     }
     return maRoom;
+}
+
+dungeon askDungeon(){
+    dungeon monDungeon;
+    int longueur;
+    int largeur;
+    int whoPlace;
+    int nbRoom; 
+    printf("Longueur du donjon: ");
+    scanf("%d", &longueur);
+    printf("Largeur du donjon: ");
+    scanf("%d", &largeur);
+    monDungeon = creatDungeon(largeur, longueur, 0);
+    printf("Voulez-vous que les salles soit remplies et placees automatiquement ? ( 0 => oui / 1 => non) ");
+    scanf("%d", &whoPlace);
+    if (whoPlace == 0){
+        printf("Combien de salle ? ");
+        scanf("%d", &nbRoom);
+        for (int i = 0; i < nbRoom; i++){
+            
+        }
+    }else{
+        for (int i = 0; i < 4; i++){
+            int numCarac = 0;
+            printf("Combien de %s maximum ? ");
+            scanf("%d", &numCarac);
+            for (int j = numCarac; j > 0; j--){
+            }
+        }
+    }
+    return monDungeon;
 }
