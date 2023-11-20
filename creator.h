@@ -7,7 +7,7 @@
 
     \brief Ces fonctions permettent la creation d'un donjon automatiquement ou par un utilisateurs.
 
-    \author Ghoul Massinissa /Boulogne Yanis
+    \author Ghoul Massinissa / Boulogne Yanis
     \version 1
     \date Novembre 2023
 */
@@ -46,6 +46,11 @@ typedef struct dungeon {
     int nbRoom;
     char** chunks;
 }dungeon;
+
+/**
+    \brief : Demande si donjon auto ou pas.
+ */
+void ask();
 
 /**
     \brief : Cette fonction permet la sauvegarde d'un donjon dans un fichier txt.
