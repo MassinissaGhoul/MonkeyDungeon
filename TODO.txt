@@ -13,3 +13,4 @@ EN COURS:
 FAIT:
 - sauvegarde donjon dans TXT
 - Entrée et sortie donjon
+- modifier killMob => vérifie au moment de placer un piège

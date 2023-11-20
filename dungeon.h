@@ -167,6 +167,7 @@ room askRoom();
 
 /**
     \brief : place des entites dans une salle a des coordonees donnees par l'utilisateur
+
     \param : maRoom : room : une salle.
     \param : typeCarac : char : type de caractere a placer
 
@@ -184,13 +185,15 @@ room placeCarac(room maRoom, char typeCarac);
 room bossPlace(room maRoom);
 
 /**
-    \brief : Change tous les monstres("M") d'une salle en depouille("W") si ils sont proches d'un piege("P").
+    \brief : Change tous les monstres("M") autour d'un piege("P") en depouille("W").
 
     \param maRoom : room : une salle.
+    \param i : int : coordonee en x du piège
+    \param j : int : coordonee en y du piège
 
     \return room : renvoie la piece en ayant change les monstres en depouille
 */
-room killMob(room maRoom);
+room killMob(room maRoom, int i, int j);
 
 /**
     \brief : Demande a l'utilisateur de creer un donjon automatiquement ou avec ses propres parametres
@@ -202,10 +205,19 @@ dungeon askDungeon();
 /**
     \brief : Demande a l'utilisateur les informations nécessaire a creer une salle pour un donjon
 
-    \param maDonjon : dungeon : un donjon
+    \param monDonjon : dungeon : un donjon
 
     \return : un donjon
 */
-room placeSalle(dungeon monDonjon);
+dungeon placeSalle(dungeon monDonjon);
+
+/**
+    \brief : Relis les portes par des couloirs
+
+    \param monDonjon : dungeon : un donjon
+
+    \return : un donjon
+*/
+dungeon autoCouloir(dungeon monDonjon);
 
 #endif

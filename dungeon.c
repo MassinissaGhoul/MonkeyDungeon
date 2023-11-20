@@ -128,6 +128,9 @@ room Spawner(room maRoom, int spawnerDisp, char type){
             if (randomNum(0, 10 + iteration) == 1 && spawnerDisp > 0 && maRoom.chunks[i][j] == ' ') {
                 maRoom.chunks[i][j] = type;
                 spawnerDisp = spawnerDisp - 1;
+                if(type == 'P'){
+                    maRoom = killMob(maRoom, i, j);
+                }
             }
         }
     }
@@ -209,7 +212,6 @@ room fillRoom(room maRoom){
     maRoom = Spawner(maRoom, numChest, typeChest);
     maRoom = Spawner(maRoom, numTrap, typeTrap);
     maRoom = Spawner(maRoom, numHostel, typeHostel);
-    maRoom = killMob(maRoom);
     return maRoom;
 }
 
@@ -235,7 +237,6 @@ room askRoom(){
             scanf("%d", &numCarac);
             maRoom = Spawner(maRoom, numCarac, typeCarac[i][0]);
         }
-        maRoom = killMob(maRoom);
     }else{
         bossPlace(maRoom);
         for (int i = 0; i < 4; i++){
@@ -245,7 +246,6 @@ room askRoom(){
             for (int j = numCarac; j > 0; j--){
                 placeCarac(maRoom, typeCarac[i][0]);
             }
-            maRoom = killMob(maRoom);
         }
     }
     return maRoom;
@@ -293,17 +293,11 @@ room bossPlace(room maRoom){
     return maRoom;
 }
 
-room killMob(room maRoom){
-    for (int i = 0; i < maRoom.longueur; i++){
-        for (int j = 0; j < maRoom.largeur; j++){
-            if (maRoom.chunks[i][j] == 'P'){
-                for (int k = -1; k < 2; k++){
-                    for (int u = -1; u < 2; u++){
-                        if (maRoom.chunks[i + k][j + u] == 'M'){
-                            maRoom.chunks[i + k][j + u] = 'W';
-                        }
-                    }
-                }
+room killMob(room maRoom, int i, int j){
+    for (int k = -1; k < 2; k++){
+        for (int u = -1; u < 2; u++){
+            if (maRoom.chunks[i + k][j + u] == 'M'){
+                maRoom.chunks[i + k][j + u] = 'W';
             }
         }
     }
@@ -358,8 +352,8 @@ dungeon placeSalle(dungeon monDonjon){
             printf("La valeur de X est trop grande");
         }else if ((monDonjon.longueur <= coorY)){
             printf("La valeur de Y est trop grande");
-        }else if (peutPlacer()){ // ne fonctionne pas pour l'instant
-            printf("La salle est sur une autre salle");
+        // }else if (peutPlacer()){ // ne fonctionne pas pour l'instant
+        //     printf("La salle est sur une autre salle");
         }else{
             canPlace = 1;
         }
@@ -367,4 +361,8 @@ dungeon placeSalle(dungeon monDonjon){
     maRoom = askRoom();
     printf("Entite placee.\n");
     return monDonjon;
+}
+
+dungeon autoCouloir(dungeon monDonjon){
+
 }
