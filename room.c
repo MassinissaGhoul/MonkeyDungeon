@@ -2,10 +2,6 @@
 #include <stdlib.h>
 #include <time.h>
 #include "creator.h"
-#define true 1
-#define false 0
-
-int iteration = 1;
 
 void freeRoom(room maRoom){
     for (int i = 0; i < maRoom.longueur; i++) {

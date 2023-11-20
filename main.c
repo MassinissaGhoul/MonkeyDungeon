@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#include "dungeon.h"
+#include "creator.h"
 
 int main(){
 

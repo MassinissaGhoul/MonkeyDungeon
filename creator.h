@@ -1,6 +1,8 @@
 #ifndef DUNGEON_H
 #define DUNGEON_H
 
+extern int iteration;
+
 /**
     \file dungeon.h
 
