@@ -136,6 +136,7 @@ room askRoom(){
             scanf("%d", &numCarac);
             maRoom = Spawner(maRoom, numCarac, typeCarac[i][0]);
         }
+    maRoom = placePorteRoomAuto(maRoom);
     }else{
         maRoom = bossPlace(maRoom);
         for (int i = 0; i < 4; i++){
@@ -145,8 +146,8 @@ room askRoom(){
             for (int j = numCarac; j > 0; j--){
                 placeCarac(maRoom, typeCarac[i][0]);
             }
-        maRoom = placePorteRoom(maRoom);
         }
+    maRoom = placePorteRoom(maRoom);
     }
     return maRoom;
 }
@@ -243,21 +244,23 @@ room placePorteRoomAuto(room maSalle){
     char caracEntree = 'O';
     int nbSortie = 1;
     char caracSortie = 'F';
-    for (int i = 1; i < maSalle.largeur - 1; i++){
-        if (randomNum(0, 4) == 1 && nbEntree == 1){
-            maSalle.chunks[0][i] = caracEntree;
-            nbEntree -= 1;
-        }
-        if (randomNum(0, 4) == 1 && nbSortie == 1){
-            maSalle.chunks[maSalle.longueur -1][i] = caracSortie;
-            nbSortie -= 1;
+    if (maSalle.largeur > 5 && maSalle.longueur > 5){
+        for (int i = 1; i < maSalle.largeur - 1; i++){
+            if (randomNum(0, 4) == 1 && nbEntree == 1){
+                maSalle.chunks[0][i] = caracEntree;
+                nbEntree -= 1;
+            }
+            if (randomNum(0, 4) == 1 && nbSortie == 1){
+                maSalle.chunks[maSalle.longueur -1][i] = caracSortie;
+                nbSortie -= 1;
+            }
         }
     }
     if (nbEntree == 1){
         maSalle.chunks[0][1] = caracEntree;
     }
     if (nbSortie == 1){
-        maSalle.chunks[maSalle.longueur][1] = caracSortie;
+        maSalle.chunks[maSalle.longueur - 1][1] = caracSortie;
     }
     return maSalle;
 }
