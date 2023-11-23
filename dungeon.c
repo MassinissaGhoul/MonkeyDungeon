@@ -117,26 +117,27 @@ dungeon placePorteDonjonAuto(dungeon monDungeon){
 }
 
 dungeon placePorteDonjon(dungeon monDonjon){
-    char caracEntree = 'E';
-    char caracSortie = 'S';
-    for (int i = 1; i < monDonjon.largeur - 1; i++){
-        if (randomNum(0, 4) == 1 && nbEntree > 0){
-            monDonjon.chunks[0][i] = caracEntree;
-            nbEntree -= 1;
+    char *caracPorte[2] = {'Entree','Sortie'};
+    int canPlace = 0;
+    int porteX;
+    int porteY;
+    for(int i = 0; i < 2; i++){
+    do {
+        printf("Coordonee X de la porte %c: ", caracPorte[i]);
+        scanf("%d", &porteX);
+        printf("Coordonee Y de la porte %c: ", caracPorte[i]);
+        scanf("%d", &porteY);
+        if ((monDonjon.largeur <= porteX)){
+            printf("La valeur de X est trop grande");
+        }else if ((monDonjon.longueur <= porteY)){
+            printf("La valeur de Y est trop grande");
+        }else{
+            canPlace = 1;
         }
-        if (randomNum(0, 4) == 1 && nbSortie > 0){
-            monDonjon.chunks[monDonjon.longueur -1][i] = caracSortie;
-            nbSortie -= 1;
-        }
-    }
-    if (nbEntree > 0){
-        monDonjon.chunks[0][1] = caracEntree;
-    }
-    if (nbSortie > 0){
-        monDonjon.chunks[monDonjon.longueur][1] = caracSortie;
+    }while(canPlace = 0);
+    monDonjon.chunks[porteX][porteY] = caracPorte[i][0];
     }
     return monDonjon;
-
 }
 
 dungeon askDungeon(){
