@@ -46,7 +46,29 @@ void freeDungeon(dungeon monDungeon){
     }
     free(monDungeon.chunks);
 }
+dungeon deletRoom(dungeon monDungeon, int i){
+    for(int l = 0; l < monDungeon.rooms[i].longueur; l++){
+        for(int m = 0; m < monDungeon.rooms[i].largeur; m++){
+            if(monDungeon.chunks[l+monDungeon.rooms[i].yPeak][m+monDungeon.rooms[i].xPeak] == monDungeon.rooms[i].chunks[l][m]){
+                monDungeon.chunks[l+monDungeon.rooms[i].yPeak][m+monDungeon.rooms[i].xPeak] = ' ';
+            }
+        }
+    }
+    return monDungeon;
+}
 
+dungeon detectCollision(dungeon monDungeon, room maRoom){
+    for(int i = 0; i < monDungeon.nbRoomIN; i++){ 
+        // if((monDungeon.rooms[i].xPeak + monDungeon.rooms[i].largeur ) < (maRoom.xPeak + maRoom.largeur ) || (monDungeon.rooms[i].yPeak + monDungeon.rooms[i].largeur  < (maRoom.yPeak + maRoom.longueur ))){
+        if(monDungeon.rooms[i].yPeak < maRoom.yPeak + maRoom.longueur && monDungeon.rooms[i].yPeak + monDungeon.rooms[i].longueur > maRoom.yPeak){
+            if(monDungeon.rooms[i].xPeak < maRoom.xPeak + maRoom.largeur && monDungeon.rooms[i].xPeak + monDungeon.rooms[i].largeur > maRoom.xPeak){
+                monDungeon = deletRoom(monDungeon, i);
+                return monDungeon;
+        }
+        } 
+    }    
+        return monDungeon;
+}
 dungeon insertRoom(dungeon monDungeon, room maRoom){
     for (int i = 0; i < monDungeon.longueur; i++) {
         for (int j = 0; j < monDungeon.largeur; j++) {
@@ -54,12 +76,18 @@ dungeon insertRoom(dungeon monDungeon, room maRoom){
                 for (int k = 0 ; k< maRoom.longueur; k++){
                     for (int l = 0; l < maRoom.largeur; l++){
                         monDungeon.chunks[k+maRoom.yPeak][l+maRoom.xPeak] = maRoom.chunks[k][l];
+                        monDungeon.rooms[monDungeon.nbRoomIN] = maRoom; 
+                        // printf("\n %d",detectCollision(monDungeon, maRoom));
                     }
                 }
-                return monDungeon;
             }
         }
-    }
+            
+        }
+    if(monDungeon.nbRoomIN != 0){
+        monDungeon = detectCollision(monDungeon, maRoom);
+        }
+    monDungeon.nbRoomIN += 1;
     return monDungeon;
 }
 
@@ -77,6 +105,8 @@ dungeon creatDungeon(int largeur, int longueur, int nbRoom){
     monDungeon.largeur = largeur;
     monDungeon.longueur = longueur;
     monDungeon.nbRoom = nbRoom;
+    monDungeon.nbRoomIN = 0;
+    monDungeon.rooms = (room*)malloc(nbRoom * sizeof(room));
     monDungeon.chunks = (char**)malloc(longueur * sizeof(char*));
     for (int i = 0; i < longueur; i++) {
         monDungeon.chunks[i] = (char*)malloc(largeur * sizeof(char));
