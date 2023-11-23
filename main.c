@@ -7,7 +7,7 @@ int main(){
 
     srand(time(NULL));
 
-    room maSalle = creatRoom(1, 1, 20,10);
+    room maSalle = creatRoom(3, 3, 20,10);
     // room maSalle2 = creatRoom(25, 25, 25, 25);
     // room maSalle3 = creatRoom(12, 12, 12, 12); 
     // room maSalle4 = creatRoom(12, 12, 12, 12); 

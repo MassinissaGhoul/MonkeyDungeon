@@ -1,12 +1,13 @@
 A FAIRE:
 - Ajout des portes de salle
-- Couloir
+- Couloir (sauvegarder les coordonnées des portes (donjon comme salle) pour autoCouloir)(couloir humain => placer la porte à la fin du couloir)
 - Réutilisation de la même salle si data similaire
 - test.c
 - un README qui explique l'installation + utilisation
-- séparé la bibliotheque en plusieurs fichiers
+
 
 EN COURS:
+- séparé la bibliotheque en plusieurs fichiers
 - gestion dépassement donjon par salle ( faire gestion inteligente)
 - code plus clean (nom de fonction, commentaire)
 

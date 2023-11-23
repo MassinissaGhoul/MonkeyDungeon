@@ -128,7 +128,7 @@ room askRoom(){
     printf("Voulez-vous que les elements soit places automatiquement ? ( 0 => oui / 1 => non) ");
     scanf("%d", &whoPlace);
     if (whoPlace == 0){
-        bossPlace(maRoom);
+        maRoom = bossPlace(maRoom);
         for (int i = 0; i < 4; i++){
             int numCarac = 0;
             printf("Combien de %s maximum ? ", typeCarac[i]);
@@ -136,7 +136,7 @@ room askRoom(){
             maRoom = Spawner(maRoom, numCarac, typeCarac[i][0]);
         }
     }else{
-        bossPlace(maRoom);
+        maRoom = bossPlace(maRoom);
         for (int i = 0; i < 4; i++){
             int numCarac = 0;
             printf("Combien de %s maximum ? ", typeCarac[i]);
@@ -144,6 +144,7 @@ room askRoom(){
             for (int j = numCarac; j > 0; j--){
                 placeCarac(maRoom, typeCarac[i][0]);
             }
+        maRoom = placePorteRoom(maRoom);
         }
     }
     return maRoom;
@@ -200,4 +201,38 @@ room killMob(room maRoom, int i, int j){
         }
     }
     return maRoom;
+}
+
+room placePorteRoom(room maSalle){
+    int porte = 0;
+    int porteX;
+    int porteY;
+    int canPlace = 0;
+    do {
+        printf("Combien de porte voulez-vous ? ");
+        scanf("%d", &porte);
+        if (porte > 4){
+            printf("Il y a trop de porte");
+        }else{
+            canPlace = 1;
+        }
+    }while(canPlace = 0);
+    for (int i = 0; i < porte; i++){
+        do {
+            printf("Coordonee X de la porte %d: ", i);
+            scanf("%d", &porteX);
+            printf("Coordonee Y de la porte %d: ", i);
+            scanf("%d", &porteY);
+            if ((maSalle.largeur <= porteX)){
+                printf("La valeur de X est trop grande");
+            }else if ((maSalle.longueur <= porteY)){
+                printf("La valeur de Y est trop grande");
+            }else{
+                canPlace = 1;
+            }
+        }while(canPlace = 0);
+        maSalle.chunks[porteX][porteY] = 'P';
+    }
+    return maSalle;
+
 }

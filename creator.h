@@ -107,13 +107,22 @@ void afficherDungeon(dungeon monDungeon);
 dungeon creatDungeon(int largeur, int longueur, int nbRoom);
 
 /**
-    \brief : Place les portes dans un donjon.
+    \brief : Place automatiquement les portes dans un donjon.
 
-    \param maRoom : room : une salle.
+    \param monDongeon : dungeon : un donjon.
 
     \return dungeon : renvoie le donjon avec son entree et sa sortie
 */
-dungeon placePorte(dungeon monDongeon);
+dungeon placePorteDonjonAuto(dungeon monDongeon);
+
+/**
+    \brief : Demande l'emplacement des portes dans un donjon.
+
+    \param monDongeon : dungeon : un donjon.
+
+    \return dungeon : renvoie le donjon avec son entree et sa sortie
+*/
+dungeon placePorteDonjon(dungeon monDongeon);
 
 /**
     \brief : Affiche une salle dans la console.
@@ -222,9 +231,29 @@ dungeon placeSalle(dungeon monDonjon);
     \brief : Relis les portes par des couloirs
 
     \param monDonjon : dungeon : un donjon
+    \param i : int : coordonee x de l'entree
+    \param j : int : coordonee y de l'entree
 
     \return : un donjon
 */
-dungeon autoCouloir(dungeon monDonjon);
+dungeon autoCouloir(dungeon monDonjon, int i, int j);
+
+/**
+    \brief : Demande l'emplacement des portes d'une salle.
+
+    \param maSalle : room : une salle.
+
+    \return salle : renvoie une salle avec son entree et sa sortie
+*/
+room placePorteRoom(room maSalle);
+
+/**
+    \brief : Place automatiquement les portes d'une salle.
+
+    \param maSalle : room : une salle.
+
+    \return salle : renvoie une salle avec son entree et sa sortie
+*/
+room placePorteRoomAuto(room maSalle);
 
 #endif

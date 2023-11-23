@@ -1,5 +1,5 @@
-monkeydungeon: main.o dungeon.o room.o
-	gcc -o monkeydungeon main.o dungeon.o room.o
+monkeydungeon: main.o dungeon.o room.o corridor.o
+	gcc -o monkeydungeon main.o dungeon.o room.o corridor.o
 
 main.o: main.c
 	gcc -c main.c
@@ -10,8 +10,8 @@ dungeon.o: dungeon.c
 room.o: room.c
 	gcc -c room.c
 
-# corridor.o: corridor.c
-# 	gcc -c corridor.c
+corridor.o: corridor.c
+	gcc -c corridor.c
 
 ifneq ($(OS),Windows_NT)
 clean:

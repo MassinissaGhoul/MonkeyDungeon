@@ -88,11 +88,11 @@ dungeon creatDungeon(int largeur, int longueur, int nbRoom){
             }
         }
     }
-    monDungeon = placePorte(monDungeon);
+    monDungeon = placePorteDonjonAuto(monDungeon);
     return monDungeon;
 }
 
-dungeon placePorte(dungeon monDungeon){
+dungeon placePorteDonjonAuto(dungeon monDungeon){
     int nbEntree = 1;
     char caracEntree = 'E';
     int nbSortie = 1;
@@ -114,6 +114,29 @@ dungeon placePorte(dungeon monDungeon){
         monDungeon.chunks[monDungeon.longueur][1] = caracSortie;
     }
     return monDungeon;
+}
+
+dungeon placePorteDonjon(dungeon monDonjon){
+    char caracEntree = 'E';
+    char caracSortie = 'S';
+    for (int i = 1; i < monDonjon.largeur - 1; i++){
+        if (randomNum(0, 4) == 1 && nbEntree > 0){
+            monDonjon.chunks[0][i] = caracEntree;
+            nbEntree -= 1;
+        }
+        if (randomNum(0, 4) == 1 && nbSortie > 0){
+            monDonjon.chunks[monDonjon.longueur -1][i] = caracSortie;
+            nbSortie -= 1;
+        }
+    }
+    if (nbEntree > 0){
+        monDonjon.chunks[0][1] = caracEntree;
+    }
+    if (nbSortie > 0){
+        monDonjon.chunks[monDonjon.longueur][1] = caracSortie;
+    }
+    return monDonjon;
+
 }
 
 dungeon askDungeon(){
@@ -164,8 +187,6 @@ dungeon placeSalle(dungeon monDonjon){
             printf("La valeur de X est trop grande");
         }else if ((monDonjon.longueur <= coorY)){
             printf("La valeur de Y est trop grande");
-        // }else if (peutPlacer()){ // ne fonctionne pas pour l'instant
-        //     printf("La salle est sur une autre salle");
         }else{
             canPlace = 1;
         }
@@ -173,8 +194,4 @@ dungeon placeSalle(dungeon monDonjon){
     maRoom = askRoom();
     printf("Entite placee.\n");
     return monDonjon;
-}
-
-dungeon autoCouloir(dungeon monDonjon){
-
 }
