@@ -46,7 +46,9 @@ typedef struct dungeon {
     int largeur;
     int longueur;
     int nbRoom;
+    int nbRoomIN;
     char** chunks;
+    room* rooms;
 }dungeon;
 
 /**
@@ -88,12 +90,19 @@ void freeDungeon(dungeon monDungeon);
  */
 dungeon insertRoom(dungeon monDungeon, room maRoom);
 
+
+
 /**
     \brief : Affiche un donjon dans la console.
 
     \param monDungeon : dungeon : un donjon.
 */
 void afficherDungeon(dungeon monDungeon);
+
+
+dungeon deletRoom(dungeon monDungeon, int i);
+
+dungeon detectCollision(dungeon monDungeon, room maRoom);
 
 /**
     \brief : Creer les bordures d'un donjon.
