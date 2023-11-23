@@ -237,3 +237,27 @@ room placePorteRoom(room maSalle){
     return maSalle;
 
 }
+
+room placePorteRoomAuto(room maSalle){
+    int nbEntree = 1;
+    char caracEntree = 'O';
+    int nbSortie = 1;
+    char caracSortie = 'F';
+    for (int i = 1; i < maSalle.largeur - 1; i++){
+        if (randomNum(0, 4) == 1 && nbEntree == 1){
+            maSalle.chunks[0][i] = caracEntree;
+            nbEntree -= 1;
+        }
+        if (randomNum(0, 4) == 1 && nbSortie == 1){
+            maSalle.chunks[maSalle.longueur -1][i] = caracSortie;
+            nbSortie -= 1;
+        }
+    }
+    if (nbEntree == 1){
+        maSalle.chunks[0][1] = caracEntree;
+    }
+    if (nbSortie == 1){
+        maSalle.chunks[maSalle.longueur][1] = caracSortie;
+    }
+    return maSalle;
+}
