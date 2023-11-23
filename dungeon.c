@@ -147,7 +147,7 @@ dungeon placePorteDonjonAuto(dungeon monDungeon){
 }
 
 dungeon placePorteDonjon(dungeon monDonjon){
-    char *caracPorte[2] = {'Entree','Sortie'};
+    char *caracPorte[2] = {"Entree","Sortie"};
     int canPlace = 0;
     int porteX;
     int porteY;
@@ -194,12 +194,14 @@ dungeon askDungeon(){
             maRoom = fillRoom(maRoom);
             monDungeon = insertRoom(monDungeon, maRoom);
         }
+        monDungeon = placePorteDonjonAuto(monDungeon);
     }else{
         printf("Combien de salle ? ");
         scanf("%d", &nbRoom);
         for (int i = 0; i < nbRoom; i++){
             monDungeon = placeSalle(monDungeon);
         }
+        monDungeon = placePorteDonjon(monDungeon);
     }
     return monDungeon;
 }

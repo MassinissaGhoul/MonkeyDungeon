@@ -52,6 +52,7 @@ room creatRoom(int xPeak, int yPeak, int largeur, int longueur) {
             }
         }
     }
+    maRoom = placePorteRoomAuto(maRoom);
     return maRoom;
 }
 
