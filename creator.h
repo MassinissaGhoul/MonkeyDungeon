@@ -4,10 +4,10 @@
 extern int iteration;
 
 /**
-    \file dungeon.h
+    \file dungeonh
 
 
-    \brief Ces fonctions permettent la creation d'un donjon automatiquement ou par un utilisateurs.
+    \brief Ces fonctions permettent la creation d'un donjon automatiquement ou par un utilisateurs
 
     \author Ghoul Massinissa / Boulogne Yanis
     \version 1
@@ -15,7 +15,7 @@ extern int iteration;
 */
 
 /**
-    \brief Structure gerant les informations d'une salle.
+    \brief Structure gerant les informations d'une salle
 
     \typedef struct room
 
@@ -33,7 +33,7 @@ typedef struct room {
 }room;
 
 /**
-    \brief Structure gerant les informations d'un donjon.
+    \brief Structure gerant les informations d'un donjon
 
     \typedef struct dungeon
 
@@ -52,60 +52,73 @@ typedef struct dungeon {
 }dungeon;
 
 /**
-    \brief : Demande si donjon auto ou pas.
+    \brief : Demande si le donjon se créé automatiquement ou pas
  */
-void ask();
+void creation();
 
 /**
-    \brief : Cette fonction permet la sauvegarde d'un donjon dans un fichier txt.
+    \brief : Cette fonction permet la sauvegarde d'un donjon dans un fichier txt
 
-    \param monDungeon : dungeon : un donjon.
-    \param fileName : char* : nom du fichier de sauvegarde.
+    \param dungeon : dungeon : un donjon
+    \param fileName : char* : nom du fichier de sauvegarde
 */
-void saveDungeonFile(dungeon monDungeon, char* fileName);
+void saveDungeonFile(dungeon dungeon, char* fileName);
 
 /**
-    \brief : Libère l'espace mémoire d'une salle.
+    \brief : Libère l'espace mémoire d'une salle
 
-    \param maRoom : room : une salle.
+    \param room : room : une salle
 */
-void freeRoom(room maRoom);
+void freeRoom(room room);
 
 /**
-    \brief : Libère l'espace mémoire d'un donjon.
+    \brief : Libère l'espace mémoire d'un donjon
 
-    \param monDungeon : dungeon : un donjon.
+    \param dungeon : dungeon : un donjon
 */
-void freeDungeon(dungeon monDungeon);
+void freeDungeon(dungeon dungeon);
 
 /**
-    \brief : insert une salle dans un donjon.
+    \brief : insert une salle dans un donjon
 
-    \param monDungeon : dungeon : un donjon.
-    \param maRoom : room : une salle.
+    \param dungeon : dungeon : un donjon
+    \param room : room : une salle
 
-    \remark : La fonction verifie à ne pas inserer une salle en dehors du donjon.
+    \remark : La fonction verifie à ne pas inserer une salle en dehors du donjon
 
     \return dungeon : renvoie le donjon rempli
  */
-dungeon insertRoom(dungeon monDungeon, room maRoom);
-
-
+dungeon insertRoomAuto(dungeon dungeon, room room);
 
 /**
-    \brief : Affiche un donjon dans la console.
+    \brief : Affiche un donjon dans la console
 
-    \param monDungeon : dungeon : un donjon.
+    \param dungeon : dungeon : un donjon
 */
-void afficherDungeon(dungeon monDungeon);
-
-
-dungeon deletRoom(dungeon monDungeon, int i);
-
-dungeon detectCollision(dungeon monDungeon, room maRoom);
+void printDungeon(dungeon dungeon);
 
 /**
-    \brief : Creer les bordures d'un donjon.
+    \brief : Supprime une salle si elle n'est pas placable
+
+    \param dungeon : dungeon : un donjon
+    \param i : int : index de la salle
+    
+    \return dungeon : renvoie le donjon
+*/
+dungeon deletRoom(dungeon dungeon, int i);
+
+/**
+    \brief : Verifie qu'une salle est placable
+
+    \param dungeon : dungeon : un donjon
+    \param room : room : une salle
+
+    \return dungeon : renvoie le donjon
+*/
+dungeon detectCollision(dungeon dungeon, room room);
+
+/**
+    \brief : Creer les bordures d'un donjon
 
     \param largeur : int : largeur du donjon
     \param longueur : int : longueur du donjon
@@ -116,32 +129,32 @@ dungeon detectCollision(dungeon monDungeon, room maRoom);
 dungeon creatDungeon(int largeur, int longueur, int nbRoom);
 
 /**
-    \brief : Place automatiquement les portes dans un donjon.
+    \brief : Place automatiquement les portes dans un donjon
 
-    \param monDongeon : dungeon : un donjon.
-
-    \return dungeon : renvoie le donjon avec son entree et sa sortie
-*/
-dungeon placePorteDonjonAuto(dungeon monDongeon);
-
-/**
-    \brief : Demande l'emplacement des portes dans un donjon.
-
-    \param monDongeon : dungeon : un donjon.
+    \param dungeon : dungeon : un donjon
 
     \return dungeon : renvoie le donjon avec son entree et sa sortie
 */
-dungeon placePorteDonjon(dungeon monDongeon);
+dungeon dungeonAutoDoor(dungeon dungeon);
 
 /**
-    \brief : Affiche une salle dans la console.
+    \brief : Demande l'emplacement des portes dans un donjon
 
-    \param maRoom : room : une salle.
+    \param dungeon : dungeon : un donjon
+
+    \return dungeon : renvoie le donjon avec son entree et sa sortie
 */
-void afficherRoom(room maRoom);
+dungeon dungeonDoor(dungeon dungeon);
 
 /**
-    \brief : genere un numero aleatoire
+    \brief : Affiche une salle dans la console
+
+    \param room : room : une salle
+*/
+void printRoom(room room);
+
+/**
+    \brief : genere une  aleur numerique aleatoire
 
     \param min : nombre minimum
     \param max : nombre maximum
@@ -153,13 +166,13 @@ int randomNum(int min, int max);
 /**
     \brief : Permet de mettre un caractere dans une salle
 
-    \param maRoom : room : une salle.
-    \param spawnerDisp : int : nombre d'entites a placer
+    \param room : room : une salle
+    \param spawnerDisp : int : nombre maximal d'entites a placer
     \param type : char : type de caractere a placer
 
     \return : une salle avec des entites
 */
-room Spawner(room maRoom, int spawnerDisp, char type);
+room spawner(room room, int spawnerDisp, char type);
 
 /**
     \brief : creer une salle
@@ -176,11 +189,11 @@ room creatRoom(int xPeak, int yPeak, int largeur, int longueur);
 /**
     \brief : met des entites dans une salle
 
-    \param maRoom : room : une salle.
+    \param room : room : une salle
 
     \return : une salle avec des entites
 */
-room fillRoom(room maRoom);
+room fillRoom(room room);
 
 /**
     \brief : Demande a l'utilisateur de creer une salle automatiquement ou avec ses propres parametres
@@ -193,32 +206,32 @@ room askRoom();
 /**
     \brief : place des entites dans une salle a des coordonees donnees par l'utilisateur
 
-    \param : maRoom : room : une salle.
+    \param : room : room : une salle
     \param : typeCarac : char : type de caractere a placer
 
     \return : une salle avec des entites
 */
-room placeCarac(room maRoom, char typeCarac);
+room insertType(room room, char typeCarac);
 
 /**
-    \brief : Place le boss dans une salle genere par un utilisateur.
+    \brief : Place le boss dans une salle genere par un utilisateur
 
-    \param maRoom : room : une salle.
+    \param room : room : une salle
 
     \return room : renvoie la salle avec le boss
 */
-room bossPlace(room maRoom);
+room insertBoss(room room);
 
 /**
-    \brief : Change tous les monstres("M") autour d'un piege("P") en depouille("W").
+    \brief : Change tous les monstres("M") autour d'un piege("P") en depouille("W")
 
-    \param maRoom : room : une salle.
+    \param room : room : une salle
     \param i : int : coordonee en x du piège
     \param j : int : coordonee en y du piège
 
     \return room : renvoie la piece en ayant change les monstres en depouille
 */
-room killMob(room maRoom, int i, int j);
+room killMob(room room, int i, int j);
 
 /**
     \brief : Demande a l'utilisateur de creer un donjon automatiquement ou avec ses propres parametres
@@ -230,11 +243,29 @@ dungeon askDungeon();
 /**
     \brief : Demande a l'utilisateur les informations nécessaire a creer une salle pour un donjon
 
-    \param monDonjon : dungeon : un donjon
+    \param dungeon : dungeon : un donjon
 
     \return : un donjon
 */
-dungeon placeSalle(dungeon monDonjon);
+dungeon insertRoom(dungeon dungeon);
+
+/**
+    \brief : Demande l'emplacement des portes d'une salle
+
+    \param room : room : une salle
+
+    \return room : renvoie une salle avec son entree et sa sortie
+*/
+room roomDoor(room room);
+
+/**
+    \brief : Place automatiquement les portes d'une salle
+
+    \param room : room : une salle
+
+    \return room : renvoie une salle avec son entree et sa sortie
+*/
+room roomAutoDoor(room room);
 
 /**
     \brief : Relis les portes par des couloirs
@@ -247,22 +278,7 @@ dungeon placeSalle(dungeon monDonjon);
 */
 dungeon autoCouloir(dungeon monDonjon, int i, int j);
 
-/**
-    \brief : Demande l'emplacement des portes d'une salle.
+dungeon corridorPart(dungeon monDonjon, int i, int j, int number);
 
-    \param maSalle : room : une salle.
-
-    \return salle : renvoie une salle avec son entree et sa sortie
-*/
-room placePorteRoom(room maSalle);
-
-/**
-    \brief : Place automatiquement les portes d'une salle.
-
-    \param maSalle : room : une salle.
-
-    \return salle : renvoie une salle avec son entree et sa sortie
-*/
-room placePorteRoomAuto(room maSalle);
 
 #endif

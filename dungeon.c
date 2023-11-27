@@ -9,14 +9,14 @@ int randomNum(int min, int max){
     return rand() % (max - min + 1) + min;
 }
 
-void ask(){
+void creation(){
     int how;
     printf("Creation assistee d'un donjon ? (0 => oui / 1 => non) ");
     scanf("%d", &how);
     if (how == 0){
         dungeon monDonjon = askDungeon();
     }else{
-        dungeon monDonjon = creatDungeon(50, 30, 5);
+        dungeon monDonjon = creatDungeon(80, 80, 5);
     }
 }
 
@@ -69,7 +69,7 @@ dungeon detectCollision(dungeon monDungeon, room maRoom){
     }    
         return monDungeon;
 }
-dungeon insertRoom(dungeon monDungeon, room maRoom){
+dungeon insertRoomAuto(dungeon monDungeon, room maRoom){
     for (int i = 0; i < monDungeon.longueur; i++) {
         for (int j = 0; j < monDungeon.largeur; j++) {
             if(maRoom.xPeak == i && monDungeon.chunks[maRoom.yPeak][maRoom.xPeak] != '#' && (maRoom.yPeak + maRoom.longueur -1) < monDungeon.longueur -1 && (maRoom.xPeak + maRoom.largeur -1) < monDungeon.largeur -1){
@@ -91,7 +91,7 @@ dungeon insertRoom(dungeon monDungeon, room maRoom){
     return monDungeon;
 }
 
-void afficherDungeon(dungeon monDungeon){
+void printDungeon(dungeon monDungeon){
     for (int i = 0; i < monDungeon.longueur; i++) {
         for (int j = 0; j < monDungeon.largeur; j++) {
             printf("%c", monDungeon.chunks[i][j]);
@@ -118,11 +118,11 @@ dungeon creatDungeon(int largeur, int longueur, int nbRoom){
             }
         }
     }
-    monDungeon = placePorteDonjonAuto(monDungeon);
+    monDungeon = dungeonAutoDoor(monDungeon);
     return monDungeon;
 }
 
-dungeon placePorteDonjonAuto(dungeon monDungeon){
+dungeon dungeonAutoDoor(dungeon monDungeon){
     int nbEntree = 1;
     char caracEntree = 'E';
     int nbSortie = 1;
@@ -146,7 +146,7 @@ dungeon placePorteDonjonAuto(dungeon monDungeon){
     return monDungeon;
 }
 
-dungeon placePorteDonjon(dungeon monDonjon){
+dungeon dungeonDoor(dungeon monDonjon){
     char *caracPorte[2] = {"Entree","Sortie"};
     int canPlace = 0;
     int porteX;
@@ -192,21 +192,21 @@ dungeon askDungeon(){
         for (int i = 0; i < nbRoom; i++){
             maRoom = creatRoom(1, 1, largeurRoom, longueurRoom);
             maRoom = fillRoom(maRoom);
-            monDungeon = insertRoom(monDungeon, maRoom);
+            monDungeon = insertRoomAuto(monDungeon, maRoom);
         }
-        monDungeon = placePorteDonjonAuto(monDungeon);
+        monDungeon = dungeonAutoDoor(monDungeon);
     }else{
         printf("Combien de salle ? ");
         scanf("%d", &nbRoom);
         for (int i = 0; i < nbRoom; i++){
-            monDungeon = placeSalle(monDungeon);
+            monDungeon = insertRoom(monDungeon);
         }
-        monDungeon = placePorteDonjon(monDungeon);
+        monDungeon = dungeonDoor(monDungeon);
     }
     return monDungeon;
 }
 
-dungeon placeSalle(dungeon monDonjon){
+dungeon insertRoom(dungeon monDonjon){
     room maRoom;
     int coorX;
     int coorY;
@@ -225,6 +225,6 @@ dungeon placeSalle(dungeon monDonjon){
         }
     }while(canPlace = 0);
     maRoom = askRoom();
-    printf("Entite placee.\n");
+    printf("Salle placee.\n");
     return monDonjon;
 }

@@ -8,7 +8,7 @@ int main(){
     srand(time(NULL));
 
     room maSalle = creatRoom(1, 1, 20,11);
-    room maSalle2 = creatRoom(30, 35, 3, 3);
+    room maSalle2 = creatRoom(5, 5, 3, 3);
     // room maSalle2 = creatRoom(20, 25, 25, 10);
     // room maSalle3 = creatRoom(12, 12, 12, 12); 
     // room maSalle4 = creatRoom(12, 12, 12, 12); 
@@ -27,10 +27,33 @@ int main(){
     // afficherRoom(maSalle4);
     // afficherRoom(maSalle5);*
     dungeon monDonjon = creatDungeon(60, 40, 5);
-    monDonjon = insertRoom(monDonjon, maSalle);
-    monDonjon = insertRoom(monDonjon, maSalle2);
-    
-    afficherDungeon(monDonjon);
+    monDonjon = insertRoomAuto(monDonjon, maSalle);
+    monDonjon = insertRoomAuto(monDonjon, maSalle2);
+
+    int i = 10;
+    int j = 10;
+    int k = 0;
+    while(k != 6){
+        scanf("%d", &k);
+        monDonjon = corridorPart(monDonjon, i, j, k);
+        printDungeon(monDonjon);
+        if(k == 1){
+            j++;
+        }else if(k == 3){
+            i++;
+        }
+
+
+
+    }
+
+//    monDonjon = corridorPart(monDonjon, 10, 10, 1);
+  //  monDonjon = corridorPart(monDonjon, 10, 11, 1);
+    //monDonjon = corridorPart(monDonjon, 10, 12, 2);
+
+
+
+//    printDungeon(monDonjon);
 
 
     saveDungeonFile(monDonjon, "Dungeon.txt");
@@ -43,5 +66,4 @@ int main(){
     // free(maSalle);
 
     return 0;
-
 }

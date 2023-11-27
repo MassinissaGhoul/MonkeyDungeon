@@ -10,7 +10,7 @@ void freeRoom(room maRoom){
     free(maRoom.chunks);
 }
 
-void afficherRoom(room maRoom){
+void printRoom(room maRoom){
     for (int i = 0; i < maRoom.longueur; i++) {
         for (int j = 0; j < maRoom.largeur; j++) {
             printf("%c", maRoom.chunks[i][j]);
@@ -20,7 +20,7 @@ void afficherRoom(room maRoom){
     free(maRoom.chunks);
 }
 
-room Spawner(room maRoom, int spawnerDisp, char type){
+room spawner(room maRoom, int spawnerDisp, char type){
     for (int i = 0; i < maRoom.longueur; i++) {
         for (int j = 0; j < maRoom.largeur; j++) {
             if (randomNum(0, 10 + iteration) == 1 && spawnerDisp > 0 && maRoom.chunks[i][j] == ' ') {
@@ -52,7 +52,7 @@ room creatRoom(int xPeak, int yPeak, int largeur, int longueur) {
             }
         }
     }
-    maRoom = placePorteRoomAuto(maRoom);
+    maRoom = roomAutoDoor(maRoom);
     return maRoom;
 }
 
@@ -107,10 +107,10 @@ room fillRoom(room maRoom){
         iteration = (maRoom.largeur > maRoom.longueur) ? maRoom.largeur*1.8 : maRoom.longueur*1.8;
 
     }
-    maRoom = Spawner(maRoom, numMonster, typeMonster);
-    maRoom = Spawner(maRoom, numChest, typeChest);
-    maRoom = Spawner(maRoom, numTrap, typeTrap);
-    maRoom = Spawner(maRoom, numHostel, typeHostel);
+    maRoom = spawner(maRoom, numMonster, typeMonster);
+    maRoom = spawner(maRoom, numChest, typeChest);
+    maRoom = spawner(maRoom, numTrap, typeTrap);
+    maRoom = spawner(maRoom, numHostel, typeHostel);
     return maRoom;
 }
 
@@ -129,30 +129,30 @@ room askRoom(){
     printf("Voulez-vous que les elements soit places automatiquement ? ( 0 => oui / 1 => non) ");
     scanf("%d", &whoPlace);
     if (whoPlace == 0){
-        maRoom = bossPlace(maRoom);
+        maRoom = insertBoss(maRoom);
         for (int i = 0; i < 4; i++){
             int numCarac = 0;
             printf("Combien de %s maximum ? ", typeCarac[i]);
             scanf("%d", &numCarac);
-            maRoom = Spawner(maRoom, numCarac, typeCarac[i][0]);
+            maRoom = spawner(maRoom, numCarac, typeCarac[i][0]);
         }
-    maRoom = placePorteRoomAuto(maRoom);
+    maRoom = roomAutoDoor(maRoom);
     }else{
-        maRoom = bossPlace(maRoom);
+        maRoom = insertBoss(maRoom);
         for (int i = 0; i < 4; i++){
             int numCarac = 0;
             printf("Combien de %s maximum ? ", typeCarac[i]);
             scanf("%d", &numCarac);
             for (int j = numCarac; j > 0; j--){
-                placeCarac(maRoom, typeCarac[i][0]);
+                insertType(maRoom, typeCarac[i][0]);
             }
         }
-    maRoom = placePorteRoom(maRoom);
+    maRoom = roomDoor(maRoom);
     }
     return maRoom;
 }
 
-room placeCarac(room maRoom, char typeCarac){
+room insertType(room maRoom, char typeCarac){
     int coorX;
     int coorY;
     int canPlace = 0;
@@ -176,7 +176,7 @@ room placeCarac(room maRoom, char typeCarac){
     return maRoom;
 }
 
-room bossPlace(room maRoom){
+room insertBoss(room maRoom){
     int boss;
     if (maRoom.longueur >= 20 && maRoom.largeur >= 20){
         printf("Y a t il un boss ? (0 => oui /1 => non) ");
@@ -205,7 +205,7 @@ room killMob(room maRoom, int i, int j){
     return maRoom;
 }
 
-room placePorteRoom(room maSalle){
+room roomDoor(room maSalle){
     int porte = 0;
     int porteX;
     int porteY;
@@ -239,7 +239,7 @@ room placePorteRoom(room maSalle){
 
 }
 
-room placePorteRoomAuto(room maSalle){
+room roomAutoDoor(room maSalle){
     int nbEntree = 1;
     char caracEntree = 'O';
     int nbSortie = 1;
