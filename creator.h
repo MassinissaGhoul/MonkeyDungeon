@@ -105,7 +105,7 @@ void printDungeon(dungeon dungeon);
     
     \return dungeon : renvoie le donjon
 */
-dungeon deletRoom(dungeon dungeon, int i);
+void deletRoom(dungeon dungeon, int i);
 
 /**
     \brief : Verifie qu'une salle est placable
@@ -115,7 +115,7 @@ dungeon deletRoom(dungeon dungeon, int i);
 
     \return dungeon : renvoie le donjon
 */
-dungeon detectCollision(dungeon dungeon, room room);
+void detectCollision(dungeon dungeon, room room);
 
 /**
     \brief : Creer les bordures d'un donjon
