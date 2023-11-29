@@ -21,6 +21,7 @@ void creation()
     if (how == 0)
     {
         dungeon monDonjon = askDungeon();
+        printDungeon(monDonjon);
         freeDungeon(monDonjon);
     }
     else
@@ -31,10 +32,12 @@ void creation()
         int j = 2;
         int k = 2;
         dungeon monDonjon = creatDungeon(largeur, longueur, salle);
+        monDonjon = dungeonAutoDoor(monDonjon);
         for (int i = 0; i < salle; i++)
             {
                 room maSalle = creatRoom(j, k, randomNum(salle, salle * 4), randomNum(salle, salle * 3));
                 maSalle = fillRoom(maSalle);
+                maSalle = roomAutoDoor(maSalle);
                 j = randomNum(maSalle.largeur, monDonjon.largeur - maSalle.largeur);
                 k = randomNum(maSalle.longueur, monDonjon.longueur - maSalle.longueur);
                 monDonjon = insertRoomAuto(monDonjon, maSalle);
@@ -176,7 +179,6 @@ dungeon creatDungeon(int largeur, int longueur, int nbRoom)
             }
         }
     }
-    monDungeon = dungeonAutoDoor(monDungeon);
     return monDungeon;
 }
 
@@ -244,7 +246,6 @@ dungeon dungeonDoor(dungeon monDonjon)
 
 dungeon askDungeon()
 {
-    dungeon monDungeon;
     int longueur;
     int largeur;
     int whoPlace;
@@ -253,21 +254,23 @@ dungeon askDungeon()
     scanf("%d", &longueur);
     printf("Largeur du donjon: ");
     scanf("%d", &largeur);
-    monDungeon = creatDungeon(largeur, longueur, 0);
+    dungeon monDungeon = creatDungeon(largeur, longueur, 0);
     printf("Voulez-vous que les salles soit remplies et placees automatiquement ? ( 0 => oui / 1 => non) ");
     scanf("%d", &whoPlace);
-    if (whoPlace == 0)
-    {
+
+    if (whoPlace == 0){
         printf("Combien de salle ? ");
         scanf("%d", &nbRoom);
         int largeurRoom = randomNum(4, monDungeon.largeur / 5);
         int longueurRoom = randomNum(4, monDungeon.longueur / 5);
-        room maRoom;
-        for (int i = 0; i < nbRoom; i++)
-        {
-            maRoom = creatRoom(1, 1, largeurRoom, longueurRoom);
+        int j = 2;
+        int k = 2;
+        for (int i = 0; i < nbRoom; i++){
+            room maRoom = creatRoom(j, k, largeurRoom, longueurRoom);
             maRoom = fillRoom(maRoom);
             monDungeon = insertRoomAuto(monDungeon, maRoom);
+            j = randomNum(maRoom.largeur, monDungeon.largeur - maRoom.largeur);
+            k = randomNum(maRoom.longueur, monDungeon.longueur - maRoom.longueur);
         }
         monDungeon = dungeonAutoDoor(monDungeon);
     }
@@ -275,8 +278,7 @@ dungeon askDungeon()
     {
         printf("Combien de salle ? ");
         scanf("%d", &nbRoom);
-        for (int i = 0; i < nbRoom; i++)
-        {
+        for (int i = 0; i < nbRoom; i++){
             monDungeon = insertRoom(monDungeon);
         }
         monDungeon = dungeonDoor(monDungeon);

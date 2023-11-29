@@ -52,7 +52,6 @@ room creatRoom(int xPeak, int yPeak, int largeur, int longueur) {
             }
         }
     }
-    maRoom = roomAutoDoor(maRoom);
     return maRoom;
 }
 

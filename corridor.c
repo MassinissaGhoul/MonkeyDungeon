@@ -29,6 +29,7 @@ int verifColisionCorridor(dungeon monDonjon, int i, int j){
     
     
 }
+
 void makeCorridor(dungeon monDonjon, int i, int j){
     int choice = 10;
     int preChoice = 0;
