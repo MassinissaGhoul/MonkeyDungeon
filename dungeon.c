@@ -13,6 +13,9 @@ int randomNum(int min, int max)
 void creation()
 {
     int how;
+    int corridor;
+    int corridorX;
+    int corridorY;
     printf("Creation assistee d'un donjon ? (0 => oui / 1 => non) ");
     scanf("%d", &how);
     if (how == 0)
@@ -37,6 +40,15 @@ void creation()
                 monDonjon = insertRoomAuto(monDonjon, maSalle);
             }
         printDungeon(monDonjon);
+        printf("Voulez-vous creer des couloirs ? (0 => oui / 1 => non) ");
+        scanf("%d", &corridor);
+        printf("Coordonee X du couloir: ");
+        scanf("%d", &corridorX);
+        printf("Coordonee Y du couloir: ");
+        scanf("%d", &corridorY);
+        if(corridor == 0){
+            makeCorridor(monDonjon, corridorX, corridorY);
+        }
         freeDungeon(monDonjon);
     }
 }
