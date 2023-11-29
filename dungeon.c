@@ -95,14 +95,15 @@ void detectCollision(dungeon monDungeon, room maRoom)
             if (monDungeon.rooms[i].xPeak < maRoom.xPeak + maRoom.largeur && monDungeon.rooms[i].xPeak + monDungeon.rooms[i].largeur > maRoom.xPeak)
             {
                 deletRoom(monDungeon, i);
+                monDungeon.nbRoomIN-=1;
+                printf("%d\n", monDungeon.nbRoomIN);
             }
-        }
-        
+        }  
     }
 }
 
 dungeon insertRoomAuto(dungeon monDungeon, room maRoom)
-{   if (monDungeon.nbRoomIN != 0){
+{   if(monDungeon.nbRoomIN != 0 && monDungeon.chunks[maRoom.yPeak][maRoom.xPeak] != '#' && (maRoom.yPeak + maRoom.longueur -1) < monDungeon.longueur -1 && (maRoom.xPeak + maRoom.largeur -1) < monDungeon.largeur -1){
         detectCollision(monDungeon, maRoom);
     }
     for (int i = 0; i < monDungeon.longueur; i++)

@@ -1,11 +1,10 @@
 A FAIRE:
-- Réutilisation de la même salle si data similaire
-- test.c
+- Réutilisation de la même salle si data similaire 
+- test.c => Main.c à netoyer
 - un README qui explique l'installation + utilisation
 
 
 EN COURS:
-- gestion dépassement donjon par salle ( faire gestion inteligente)
 - code plus clean => manque les couloirs et c'est tout 👍
 - Couloir (sauvegarder les coordonnées des portes (donjon comme salle) pour autoCouloir)(couloir humain => placer la porte à la fin du couloir)
 
@@ -16,3 +15,4 @@ FAIT:
 - modifier killMob => vérifie au moment de placer un piège
 - séparer la bibliotheque en plusieurs fichiers
 - Ajout des portes de salle
+- gestion dépassement donjon par salle ( faire gestion inteligente)
