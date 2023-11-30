@@ -289,7 +289,6 @@ dungeon corridorPart(dungeon monDonjon, int i, int j, int number);
 */
 void makeCorridor(dungeon monDonjon, int i, int j);
 
-
 /**
     \brief : Verifie si une coordonee est dans une salle
     \param monDonjon : dungeon : un donjon

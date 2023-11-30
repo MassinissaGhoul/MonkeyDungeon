@@ -4,8 +4,6 @@
 #include "creator.h"
 
 
-
-
 dungeon corridorPart(dungeon monDonjon, int i, int j, int number)
 {
     switch (number)
@@ -88,7 +86,6 @@ void makeCorridor(dungeon monDonjon, int i, int j)
                 printDungeon(monDonjon);
                 break;
             case 2:
-                // if (i - 1 >= 0 && j + 1 < monDonjon.largeur && j - 1 >= 0) {
                 corridorPart(monDonjon, i, j, 2);
                 if (preChoice == 1 && choice == 2)
                 {
@@ -105,10 +102,8 @@ void makeCorridor(dungeon monDonjon, int i, int j)
                 i++;
                 preChoice = choice;
                 printDungeon(monDonjon);
-                // }
                 break;
             case 3:
-                // if (i - 1 >= 0 && j + 1 < monDonjon.largeur && j - 1 >= 0) {
                 corridorPart(monDonjon, i, j, 2);
                 if (preChoice == 1 && choice == 3)
                 {
@@ -125,10 +120,8 @@ void makeCorridor(dungeon monDonjon, int i, int j)
                 i--;
                 preChoice = choice;
                 printDungeon(monDonjon);
-                // }
                 break;
             case 4:
-                // if (j - 1 >= 0) {
                 corridorPart(monDonjon, i, j, 1);
                 if (preChoice == 1 && choice == 4)
                 {
@@ -152,7 +145,6 @@ void makeCorridor(dungeon monDonjon, int i, int j)
                 preChoice = choice;
                 printDungeon(monDonjon);
                 break;
-            // }
             case 5:
                 choice = 0;
                 break;

@@ -249,6 +249,7 @@ dungeon askDungeon()
         for (int i = 0; i < nbRoom; i++){
             room maRoom = creatRoom(j, k, largeurRoom, longueurRoom);
             maRoom = fillRoom(maRoom);
+            maRoom = roomAutoDoor(maRoom);
             monDungeon = insertRoomAuto(monDungeon, maRoom);
             j = randomNum(maRoom.largeur, monDungeon.largeur - maRoom.largeur);
             k = randomNum(maRoom.longueur, monDungeon.longueur - maRoom.longueur);
