@@ -35,7 +35,6 @@ void saveRoomFile(dungeon monDungeon, char *fileName, int numRoom){
     FILE *fileLocation;
     fileLocation = fopen(fileName, "w");
     printf("PRE IF\n");
-    printf('%d',monDungeon.rooms[numRoom].yPeak);
     if (fileLocation == NULL)
     {
         printf("Erreur lors de l'ouverture du fichier");
@@ -45,7 +44,6 @@ void saveRoomFile(dungeon monDungeon, char *fileName, int numRoom){
     for(int j = 0; j < monDungeon.rooms[numRoom].longueur; j++){
         printf("IN FOR\n");
         for(int k = 0; k < monDungeon.rooms[numRoom].largeur; k++){
-            printf("%c", monDungeon.rooms[numRoom].chunks[j][k]);
             fprintf(fileLocation, "%c", monDungeon.rooms[numRoom].chunks[j][k]);
 
         }
