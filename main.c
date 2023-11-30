@@ -114,6 +114,7 @@ int main(){
                 k = randomNum(maSalle.longueur, monDonjon.longueur - maSalle.longueur);
                 monDonjon = insertRoomAuto(monDonjon, maSalle);
             }
+        printDungeon(monDonjon);
         printf("Voulez-vous creer des couloirs ? (0 => oui / 1 => non) ");
         scanf("%d", &corridor);
         if(corridor == 0){ 
@@ -125,6 +126,7 @@ int main(){
             corridor = 1;
 
         }
+        
     }
     printDungeon(monDonjon);
 
