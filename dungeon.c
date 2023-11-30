@@ -31,26 +31,32 @@ void saveDungeonFile(dungeon monDungeon, char *fileName)
     }
     fclose(fileLocation);
 }
+
+
 void saveRoomFile(dungeon monDungeon, char *fileName, int numRoom){
+    char newFileName[100];  
+    sprintf(newFileName, "%s%d.txt", fileName, numRoom);
+
     FILE *fileLocation;
-    fileLocation = fopen(fileName, "w");
-    printf("PRE IF\n");
-    if (fileLocation == NULL)
-    {
+    fileLocation = fopen(newFileName, "w");
+
+    if (fileLocation == NULL){
         printf("Erreur lors de l'ouverture du fichier");
         exit(1);
     }
-    printf("POST IF\n");
+
     for(int j = 0; j < monDungeon.rooms[numRoom].longueur; j++){
-        printf("IN FOR\n");
         for(int k = 0; k < monDungeon.rooms[numRoom].largeur; k++){
             fprintf(fileLocation, "%c", monDungeon.rooms[numRoom].chunks[j][k]);
-
         }
         fprintf(fileLocation, "\n");
     }
-    printf("fin prof");
+
+    fclose(fileLocation);
 }
+
+
+
 
 
 void freeDungeon(dungeon monDungeon)

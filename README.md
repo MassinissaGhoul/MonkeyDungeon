@@ -12,12 +12,12 @@ Pour utiliser ce programme, suivez ces étapes :
     `cd dungeon-creation`
 
 2.  Compiler le Programme :
-    Installer CMake 
-    `make all`
+
+    `gcc -o dungeon_creator dungeon_creator.c`
 
 3.  Exécuter le Programme :
 
-    `./monkeydungeon.exe`
+    `./dungeon_creator`
 
 ## Fonctionnalités
 

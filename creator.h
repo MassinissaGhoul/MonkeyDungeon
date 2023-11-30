@@ -290,6 +290,21 @@ dungeon corridorPart(dungeon monDonjon, int i, int j, int number);
 void makeCorridor(dungeon monDonjon, int i, int j);
 
 
+/**
+    \brief : Verifie si une coordonee est dans une salle
+    \param monDonjon : dungeon : un donjon
+    \param i : int : coordonee x
+    \param j : int : coordonee y
+    \return : 1 si la coordonee est dans une salle, 0 sinon
+*/
+int isInRoom(dungeon monDonjon, int i, int j);
+
+/**
+ * \brief : Sauvegarde une salle dans un fichier txt
+ * \param room : room : une salle
+ * \param fileName : char* : nom du fichier de sauvegarde
+ * \return : rien
+*/
 void saveRoomFile(dungeon monDungeon, char *fileName, int numRoom);
 
 #endif

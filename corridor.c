@@ -3,6 +3,9 @@
 #include <time.h>
 #include "creator.h"
 
+
+
+
 dungeon corridorPart(dungeon monDonjon, int i, int j, int number)
 {
     switch (number)
@@ -31,9 +34,16 @@ dungeon corridorPart(dungeon monDonjon, int i, int j, int number)
     return monDonjon;
 }
 
-int collisionCorridorRoom(dungeon monDonjon, int i, int j)
-{
+int isInRoom(dungeon monDonjon, int i, int j) {
+    for (int roomIndex = 0; roomIndex < monDonjon.nbRoomIN; roomIndex++) {
+        if (i >= monDonjon.rooms[roomIndex].yPeak && i < monDonjon.rooms[roomIndex].yPeak + monDonjon.rooms[roomIndex].longueur &&
+            j >= monDonjon.rooms[roomIndex].xPeak && j < monDonjon.rooms[roomIndex].xPeak + monDonjon.rooms[roomIndex].largeur) {
+            return 1;  
+        }
+    }
+    return 0;  
 }
+
 
 void makeCorridor(dungeon monDonjon, int i, int j)
 {
@@ -42,6 +52,13 @@ void makeCorridor(dungeon monDonjon, int i, int j)
 
     while (choice != 0)
     {
+        if (isInRoom(monDonjon, i, j)) {
+            printf("Vous ne pouvez pas placer le début du couloir dans une salle. Entrez de nouvelles coordonnées.\n");
+            printf("Coordonee X du couloir: ");
+            scanf("%d", &i);
+            printf("Coordonee Y du couloir: ");
+            scanf("%d", &j);
+        }
         printf("1: Droite 2: Bas 3: Haut 4: Gauche 5: Quitter l'edition des couloirs\n");
         scanf("\n %d", &choice);
         if(monDonjon.chunks[i][j] == '#' ){
