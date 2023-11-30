@@ -268,7 +268,7 @@ room roomDoor(room room);
 room roomAutoDoor(room room);
 
 /**
-    \brief : Relis les portes par des couloirs
+    \brief : Relis les bout par des couloirs
 
     \param monDonjon : dungeon : un donjon
     \param i : int : coordonee x de l'entree
@@ -278,8 +278,18 @@ room roomAutoDoor(room room);
 */
 dungeon corridorPart(dungeon monDonjon, int i, int j, int number);
 
+/**
+    \brief : realise les couloirs avec le choix de l'user
 
+    \param monDonjon : dungeon : un donjon
+    \param i : int : coordonee x de l'entree
+    \param j : int : coordonee y de l'entree
+
+    \return : rien
+*/
 void makeCorridor(dungeon monDonjon, int i, int j);
+
+
 void saveRoomFile(dungeon monDungeon, char *fileName, int numRoom);
 
 #endif
