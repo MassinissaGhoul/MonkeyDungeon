@@ -280,5 +280,6 @@ dungeon corridorPart(dungeon monDonjon, int i, int j, int number);
 
 
 void makeCorridor(dungeon monDonjon, int i, int j);
+void saveRoomFile(dungeon monDungeon, char *fileName, int numRoom);
 
 #endif

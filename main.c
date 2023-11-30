@@ -70,6 +70,7 @@ int main(){
     int corridorY;
     int combien;
     int save;
+    int numRoom;
 
     printf("Creation assistee d'un donjon ? (0 => oui / 1 => non) ");
     scanf("%d", &how);
@@ -94,7 +95,7 @@ int main(){
         printDungeon(monDonjon);
         freeDungeon(monDonjon);
     }
-    else
+    else if(how == 1)
     {
         int largeur = 80;
         int longueur = 40;
@@ -103,21 +104,43 @@ int main(){
         int k = 2;
         monDonjon = creatDungeon(largeur, longueur, salle);
         monDonjon = dungeonAutoDoor(monDonjon);
-        for (int i = 0; i < salle; i++)
-            {
+
+        for (int i = 0; i < salle; i++){
+
                 room maSalle = creatRoom(j, k, randomNum(salle, salle * 4), randomNum(salle, salle * 3));
                 maSalle = fillRoom(maSalle);
                 maSalle = roomAutoDoor(maSalle);
                 j = randomNum(maSalle.largeur, monDonjon.largeur - maSalle.largeur);
                 k = randomNum(maSalle.longueur, monDonjon.longueur - maSalle.longueur);
                 monDonjon = insertRoomAuto(monDonjon, maSalle);
+            }
+        printf("Voulez-vous creer des couloirs ? (0 => oui / 1 => non) ");
+        scanf("%d", &corridor);
+        if(corridor == 0){ 
+            printf("Coordonee X du couloir: ");
+            scanf("%d", &corridorX);
+            printf("Coordonee Y du couloir: ");
+            scanf("%d", &corridorY);
+            makeCorridor(monDonjon, corridorX, corridorY);
+            corridor = 1;
+
         }
-        freeDungeon(monDonjon);
     }
-    printf("Sauvegarder le couloir ? (0 => oui / 1 => non) ");
+    printDungeon(monDonjon);
+
+
+    printf("Sauvegarder le Donjon ? (0 => oui / 1 => non) ");
     scanf("%d", &save);
+
     if(save == 0){
-        saveDungeonFile(monDonjon, "monDonjon.txt");
+        saveDungeonFile(monDonjon, "Dungeon.txt");
+        printf("sauvegarde Donjon reussi\n");
+    }else if(save == 3){
+        printf("numero de la salle compris entre 0 et %d\n", monDonjon.nbRoom - 1);
+        scanf("%d", &numRoom);
+        printf("sauvegarde salle reussi\n");
     }
+    freeDungeon(monDonjon);
+
     return 0;
 }
