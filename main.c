@@ -127,7 +127,7 @@ int main()
     }
     printDungeon(monDonjon);
 
-    while (save != 0)
+    while (save != 2)
     {
         printf("Sauvegarder dans un .txt : 0: Le Donjon / 1: Une Salle / 2: Quitter sans enregistrer \n");
         scanf("%d", &save);
