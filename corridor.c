@@ -25,14 +25,15 @@ dungeon corridorPart(dungeon monDonjon, int i, int j, int number) {
     }return monDonjon;
 }
 
-int collisionCorridorRoom(dungeon monDonjon, int i, int j){
-    if()
-}
+// int collisionCorridorRoom(dungeon monDonjon, int i, int j){
+//     if()
+// }
 
 void makeCorridor(dungeon monDonjon, int i, int j){
     int choice = 10;
     int preChoice = 0;
     while(choice!=0){
+        printf("Quelle direction ? (1 =>  / 2 =>  / 3 =>  / 4 => ) ");
         scanf("\n %d",&choice);
         if(i - 1 >= 0 && j+1 < monDonjon.largeur && j - 1 >= 0 && i+1 < monDonjon.longueur){
             switch(choice){

@@ -6,7 +6,6 @@
 int main(){
 
     srand(time(NULL));
-    creation();
 
 //     room maSalle = creatRoom(1, 1, 20,11);
 //     room maSalle2 = creatRoom(5, 5, 20, 20);
@@ -63,5 +62,62 @@ int main(){
 
     // free(maSalle);
 
+
+    dungeon monDonjon;
+    int how;
+    int corridor;
+    int corridorX;
+    int corridorY;
+    int combien;
+    int save;
+
+    printf("Creation assistee d'un donjon ? (0 => oui / 1 => non) ");
+    scanf("%d", &how);
+    if (how == 0)
+    {
+        monDonjon = askDungeon();
+        printDungeon(monDonjon);
+        printf("Voulez-vous creer des couloirs ? (0 => oui / 1 => non) ");
+        scanf("%d", &corridor);
+        if(corridor == 0){
+            printf("Combien de couloir ? ");
+            scanf("%d", &combien);
+            for(int i = 0; i < combien; i++){
+                printf("Coordonee X du couloir: ");
+                scanf("%d", &corridorX);
+                printf("Coordonee Y du couloir: ");
+                scanf("%d", &corridorY);
+                makeCorridor(monDonjon, corridorX, corridorY);
+            }
+        printDungeon(monDonjon);
+        }
+        printDungeon(monDonjon);
+        freeDungeon(monDonjon);
+    }
+    else
+    {
+        int largeur = 80;
+        int longueur = 40;
+        int salle = 5;
+        int j = 2;
+        int k = 2;
+        monDonjon = creatDungeon(largeur, longueur, salle);
+        monDonjon = dungeonAutoDoor(monDonjon);
+        for (int i = 0; i < salle; i++)
+            {
+                room maSalle = creatRoom(j, k, randomNum(salle, salle * 4), randomNum(salle, salle * 3));
+                maSalle = fillRoom(maSalle);
+                maSalle = roomAutoDoor(maSalle);
+                j = randomNum(maSalle.largeur, monDonjon.largeur - maSalle.largeur);
+                k = randomNum(maSalle.longueur, monDonjon.longueur - maSalle.longueur);
+                monDonjon = insertRoomAuto(monDonjon, maSalle);
+        }
+        freeDungeon(monDonjon);
+    }
+    printf("Sauvegarder le couloir ? (0 => oui / 1 => non) ");
+    scanf("%d", &save);
+    if(save == 0){
+        saveDungeonFile(monDonjon, "monDonjon.txt");
+    }
     return 0;
 }

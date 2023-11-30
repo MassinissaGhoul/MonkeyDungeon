@@ -10,52 +10,6 @@ int randomNum(int min, int max)
     return rand() % (max - min + 1) + min;
 }
 
-void creation()
-{
-    int how;
-    int corridor;
-    int corridorX;
-    int corridorY;
-    printf("Creation assistee d'un donjon ? (0 => oui / 1 => non) ");
-    scanf("%d", &how);
-    if (how == 0)
-    {
-        dungeon monDonjon = askDungeon();
-        printDungeon(monDonjon);
-        freeDungeon(monDonjon);
-    }
-    else
-    {
-        int largeur = 80;
-        int longueur = 40;
-        int salle = 5;
-        int j = 2;
-        int k = 2;
-        dungeon monDonjon = creatDungeon(largeur, longueur, salle);
-        monDonjon = dungeonAutoDoor(monDonjon);
-        for (int i = 0; i < salle; i++)
-            {
-                room maSalle = creatRoom(j, k, randomNum(salle, salle * 4), randomNum(salle, salle * 3));
-                maSalle = fillRoom(maSalle);
-                maSalle = roomAutoDoor(maSalle);
-                j = randomNum(maSalle.largeur, monDonjon.largeur - maSalle.largeur);
-                k = randomNum(maSalle.longueur, monDonjon.longueur - maSalle.longueur);
-                monDonjon = insertRoomAuto(monDonjon, maSalle);
-            }
-        printDungeon(monDonjon);
-        printf("Voulez-vous creer des couloirs ? (0 => oui / 1 => non) ");
-        scanf("%d", &corridor);
-        printf("Coordonee X du couloir: ");
-        scanf("%d", &corridorX);
-        printf("Coordonee Y du couloir: ");
-        scanf("%d", &corridorY);
-        if(corridor == 0){
-            makeCorridor(monDonjon, corridorX, corridorY);
-        }
-        freeDungeon(monDonjon);
-    }
-}
-
 void saveDungeonFile(dungeon monDungeon, char *fileName)
 {
     FILE *fileLocation;
