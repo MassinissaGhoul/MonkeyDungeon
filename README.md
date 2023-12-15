@@ -8,8 +8,8 @@ Pour utiliser ce programme, suivez ces étapes :
 
 1.  Cloner le Répertoire :
 
-    `git clone https://github.com/votre-nom/dungeon-creation.git`
-    `cd dungeon-creation`
+    `git clone https://github.com/votre-nom/dungeon-creation.git](https://github.com/MassinissaGhoul/MonkeyDungeon.git`
+    `cd MonkeyDungeon`
 
 2.  Compiler le Programme :
 
