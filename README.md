@@ -13,11 +13,11 @@ Pour utiliser ce programme, suivez ces étapes :
 
 2.  Compiler le Programme :
 
-    `gcc -o dungeon_creator dungeon_creator.c`
+    `make all`
 
 3.  Exécuter le Programme :
 
-    `./dungeon_creator`
+    `./monkeydungeon.exe`
 
 ## Fonctionnalités
 
